@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpServiceService } from '../bank/http-service.service';
+import { HttpServiceService } from '../infrastructure/http-service.service';
 import { NgForm } from '@angular/forms';
 
 
