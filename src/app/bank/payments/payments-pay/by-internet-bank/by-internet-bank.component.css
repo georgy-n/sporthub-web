@@ -1,0 +1,181 @@
+.main-container
+{
+    margin-top: 20px;
+    width: 700px;
+}
+
+.text-info
+{
+    width: 100%;
+    font-weight: bold;
+    margin-bottom: 30px;
+    display: flex;
+    flex-flow: column;
+}
+
+.form-elem
+{
+    font-weight: bold;
+    color: grey;
+    display: flex;
+    flex-flow: row;
+    margin-bottom: 30px;
+}
+
+.form-label
+{
+    width: 250px;
+}
+
+.form-input
+{
+    border: 0;
+    border-bottom: 1px solid darkgray;
+    line-height: 2em;
+    font-weight: bold;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 450px;
+    text-indent: 10px;
+    position: relative;
+}
+
+.short-input
+{
+    width: 200px;
+}
+
+.form-input::placeholder
+{
+    color: #C1C1C1;
+}
+
+.chosen_nds-text 
+{
+    font-weight: bold;
+    color: black;
+    font-size: 15px;
+    text-indent: 10px;
+}
+
+.nds-list
+{
+    display: flex;
+}
+
+.form-input:focus
+{
+    outline: none;
+    border-bottom-color: red;
+}
+
+.form-input:valid
+{
+    border-bottom-color: green;
+}
+
+.custom-accept-button
+{
+    position: relative;
+    width: 300px;
+    height: 40px;
+    border: 1px solid black;
+}
+
+.button_img {
+    position: relative;
+    top: -10px;
+    left: -15px;
+    opacity: .7;
+    z-index: 1;
+}
+
+.button
+{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: background-color .5s ease-out;
+    font-family:  Arial, Helvetica, sans-serif;
+    top: 0;
+    left: 0;
+    font-weight: bold;
+    font-size: 15px;
+    text-align: center;
+    background: transparent;
+    color: black;
+    border: 1px solid black;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.button:focus 
+{
+    outline: none;
+}
+
+.button:not(:disabled):hover {
+    background-color: white;
+}
+
+.button:disabled
+{
+    opacity: .5;
+    cursor: auto;
+}
+
+.nds-list button,
+.clear-form-button
+{
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+    transition: color .15s ease-in-out;
+    display: block;
+    color: #0c75c4;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 13px;
+    margin-left: 5px;
+    margin-top: 12px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 800px)
+{
+    .form-label
+    {
+        width: 180px;
+    }
+
+    .text-info
+    {
+        width: 100%;
+    }
+
+    .main-container 
+    {
+        width: 100%;
+    }
+
+    .form-input
+    {
+        width: calc(100% - 100px);
+    }
+}

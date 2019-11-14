@@ -1,0 +1,65 @@
+.person-info
+{
+    display: flex;
+    width: 100%;
+    padding: 40px 0 40px 0;
+    flex-flow: row wrap;
+}
+
+.person-info-text
+{
+    display: flex;
+    flex-flow: column wrap;
+    width: 60%;
+}
+
+.person-info-title
+{
+    font-weight: bold;
+    font-size: 25px;
+    padding-bottom: 14px;
+}
+
+.person-info-elem
+{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.person-img img 
+{
+    position: relative;
+    bottom: -10px;
+    right: -30px;
+}
+
+a
+{
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+    display: block;
+}
+
+@media screen and (max-width: 580px) {
+    .person-info 
+    {
+        flex-flow: column wrap;
+        margin: auto;
+    }
+    
+    .person-info-text 
+    {
+        width: 100%;
+    }
+
+    .person-img
+    {
+        width: 100%;
+        text-align: center;
+        margin-top: 40px;
+    }   
+}

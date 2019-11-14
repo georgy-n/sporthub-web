@@ -1,0 +1,75 @@
+.main-container
+{
+    padding: 20px 0 35px 0;
+    
+}
+
+.title
+{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.services
+{
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.service
+{
+    width: 300px;
+    border: 1px solid #C1C1C1;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+}
+
+.photo
+{
+    width: 260px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+}
+
+.photo img
+{
+    object-fit: cover;
+}
+
+.service-title
+{
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 15px;
+    padding-left: 7px;
+}
+
+.service-money
+{
+    color: grey;
+    font-size: 14px;
+    padding-left: 7px;
+    margin: 15px 0 20px 0;
+    font-weight: bold;
+}
+
+.services-info
+{
+    font-size: 15px;
+    font-weight: bold;
+    width: 700px;
+    text-align: justify;
+}
+
+@media screen and (max-width: 800px)
+{
+    .services-info
+    {
+        width: 100%;
+    }
+}

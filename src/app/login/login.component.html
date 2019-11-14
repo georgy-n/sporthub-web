@@ -1,0 +1,19 @@
+<form (ngSubmit)="onSubmit(f)" #f='ngForm' class="form">
+  <div class="form-elem">
+      <input class="form-input"
+             type="text" id="login" name="login"
+             ngModel
+             required>
+  </div>
+  <div class="form-elem">
+    <input class="form-input"
+           type="text" id="password" name="password"
+           ngModel
+           required>
+</div>
+  <div class="custom-accept-button">
+      <button class="button" type="submit" [disabled]="!f.valid">
+          <span class="button-text">Войти</span>
+      </button>
+  </div>
+</form>

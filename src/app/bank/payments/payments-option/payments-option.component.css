@@ -1,0 +1,36 @@
+.option
+{
+    padding: 20px 0 30px;
+    display: flex;
+    flex-flow: row wrap;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.option-elem
+{
+    margin-right: 25px;
+}
+
+.link {
+    text-decoration: none;
+    outline: none;
+    transition: color .15s ease-out;
+    cursor: pointer;
+    display: block;
+}
+
+.link_blue_yes,
+.link_blue_yes:visited {
+    color: #0c75c4;
+}
+
+.link_blue_yes:hover {
+    color: #408AD2;
+}
+
+.active a
+{
+    color: black;
+    cursor: auto;
+}
