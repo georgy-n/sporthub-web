@@ -10,7 +10,25 @@ import { MyLoggerMonitor } from '../app.logger.monitor';
 
 export class HttpServiceService {
 
-  constructor(private http: HttpClient){ }
+  constructor(private http: HttpClient) { }
+  private backUrl = "http://192.168.1.36:8080"
+
+  login(login: string, password: string) {
+    const myHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    let body = JSON.stringify({
+      username: login,
+      password: password
+    });
+    let req =
+      this.http.post(this.backUrl + '/authenticate',
+        body,
+        {
+          responseType: 'json',
+          headers: myHeaders
+        });
+    return req;
+  }
+
 
   deletePayments(id) {
     let a = this.http.patch("http://localhost:5000/bank/admin/cardpayments/" + id, id);
@@ -18,16 +36,16 @@ export class HttpServiceService {
     return a;
   }
 
-  getPayments() { 
+  getPayments() {
     return this.http.get("http://localhost:5000/bank/admin/allPayments");
   }
 
-  getRequests(){
+  getRequests() {
     return this.http.get("http://localhost:5000/bank/admin/allRequests");
   }
 
   filterRequest(filter, field, sort) {
-    let query = "filter=" + filter +"&" + "sort=" + sort + "&" + "field=" + field 
+    let query = "filter=" + filter + "&" + "sort=" + sort + "&" + "field=" + field
     return this.http.get('http://localhost:5000/bank/admin/allRequests?' + query);
 
   }
@@ -39,13 +57,13 @@ export class HttpServiceService {
       password: password
     });
 
-    let req = 
-    this.http.post('http://localhost:5000/bank/admin/login',
-    body,
-    {
-      responseType: 'json',
-      headers: myHeaders
-    });
+    let req =
+      this.http.post('http://localhost:5000/bank/admin/login',
+        body,
+        {
+          responseType: 'json',
+          headers: myHeaders
+        });
     return req;
   }
   getUser() {
@@ -54,7 +72,7 @@ export class HttpServiceService {
 
   addPaymentRequest(payment: Object) {
     const myHeaders = new HttpHeaders().set('Content-Type', 'application/json');
-    
+
     return this.http.post(
       "http://localhost:5000/bank/pay-request",
       JSON.stringify(payment),
@@ -66,7 +84,7 @@ export class HttpServiceService {
 
   addPaymentCard(payment: Object) {
     const myHeaders = new HttpHeaders().set('Content-Type', 'application/json');
-    
+
     return this.http.post(
       "http://localhost:5000/bank/pay-card",
       JSON.stringify(payment),
@@ -78,7 +96,7 @@ export class HttpServiceService {
 
   addPaymentBank(payment: Object) {
     const myHeaders = new HttpHeaders().set('Content-Type', 'application/json');
-    
+
     return this.http.post(
       "http://localhost:5000/bank/pay-bank",
       JSON.stringify(payment),

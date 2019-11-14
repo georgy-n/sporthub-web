@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpServiceService } from '../bank/http-service.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,8 @@ export class AuthService {
   public isAuth: Boolean = false;
   constructor(private http: HttpServiceService) { }
 
-  public login(login: String, password: String) {
+  public login(login: string, password: string) {
     // get request to backend 
-    return this.http.getPassword(login, password);
+    return this.http.login(login, password);
   }
 }

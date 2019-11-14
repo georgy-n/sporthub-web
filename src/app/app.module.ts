@@ -17,6 +17,7 @@ import { LoginComponent } from './login/login.component';
 import { BankComponent } from './bank/bank.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
+import {ReactiveFormsModule} from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +37,7 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule
   ],

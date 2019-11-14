@@ -1,35 +1,54 @@
-import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../login/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { catchError, first, map, timeout } from 'rxjs/operators';
+import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService, private route: Router) { }
+export class LoginComponent implements OnInit {
+  loginForm: FormGroup;
+  submitted = false;
+  loading = false;
+  error: string;
+
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private formBuilder: FormBuilder) { }
+
+  get f() { return this.loginForm.controls; }
 
   ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
   }
 
-  onSubmit(form: NgForm) {
-    let toSend = form.value;
-    this.authService.login(toSend['login'], toSend['password']).subscribe(
-      (resp: any) => {
-        if(toSend['password'] == resp) {
-          console.log("hello!");
-          this.authService.isAuth = true;
-          this.route.navigate(["admin"]);
+  onSubmit() {
+    this.error = null;
+    this.submitted = true;
+
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    this.loading = true;
+    this.authService.login(this.f.username.value, this.f.password.value )
+      .subscribe( data => {
+          this.router.navigate(['/']);
+        },
+        err => {
+          this.error = err.message;
+          this.loading = false;
         }
-        else {
-          console.log("neadmin");
-          form.reset();
-      }
-      }
       );
   }
 }
