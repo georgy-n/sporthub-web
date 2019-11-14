@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpServiceService } from '../infrastructure/http-service.service';
+import { Response } from '../infrastructure/Repsonse';
+import { Product } from '../infrastructure/Product';
 
 @Component({
   selector: 'app-home',
@@ -7,11 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  private list = ["first" , "second", "f","four", "five", "asd", "Asdasc", "second", "f", "four", "five", "asd", "Asdasc"];
-
-  constructor() { }
+  private products: Iterable<Product> = [];
+  constructor(private httpService: HttpServiceService) { }
 
   ngOnInit() {
+    this.httpService.getAllProducts().subscribe((resp: Iterable<Product>) => {
+      console.log(resp);
+      this.products = resp;
+    } );
   }
 
 }

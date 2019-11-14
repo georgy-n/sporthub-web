@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { NGXLogger } from 'ngx-logger';
-import { MyLoggerMonitor } from '../app.logger.monitor';
-
+import { map } from 'rxjs/operators';
+import { Response } from '../infrastructure/Repsonse';
+import { Product } from './Product';
 @Injectable({
   providedIn: 'root'
 })
@@ -29,6 +28,21 @@ export class HttpServiceService {
     return req;
   }
 
+  getAllProducts() {
+    return this.http.get(this.backUrl + "/api/allProducts").pipe(
+      map(answer => {
+        const res = answer.valueOf() as Response;
+        if (res && res.status === 'OK') {
+          const products = res.payload.valueOf() as Iterable<Product>;
+          return products;
+
+        } else {
+          throw Error(res.message);
+
+        }
+      })
+    );
+  }
 
   deletePayments(id) {
     let a = this.http.patch("http://localhost:5000/bank/admin/cardpayments/" + id, id);
