@@ -16,17 +16,6 @@ export class AdminPanelComponent implements OnInit {
   constructor(private http: HttpServiceService) { }
 
   ngOnInit() {
-    this.http.getPayments().subscribe((resp: Iterable<Object>) => this.payments = resp);
-    this.http.getRequests().subscribe((resp: Iterable<Object>) => this.requests = resp);
-  }
-
-  deletePayment(form: NgForm) {
-      this.http.deletePayments(form.value['id']).subscribe((resp: any) => this.ngOnInit());
-  }
-
-  submitRequest(form: NgForm) {
-    this.http.filterRequest(form.value['filter'], form.value['field'], form.value['sort'])
-    .subscribe((resp: Iterable<Object>) => this.requests = resp)
   }
 
 }
