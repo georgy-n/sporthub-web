@@ -10,9 +10,6 @@ import { NgForm } from '@angular/forms';
 })
 export class AdminPanelComponent implements OnInit {
 
-  private payments: Iterable<Object>;
-  private requests: Iterable<Object>;
-
   constructor(private http: HttpServiceService) { }
 
   ngOnInit() {
