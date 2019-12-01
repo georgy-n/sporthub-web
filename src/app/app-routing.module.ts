@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
+  {path: "home", component: HomeComponent},
   {path: "login", component: LoginComponent},
   {path: "admin", component: AdminPanelComponent, canActivate: [AdminGuard]}
 ];
