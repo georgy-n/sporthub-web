@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  private products: Iterable<Product> = [];
+  products: Iterable<Product> = [];
   constructor(private httpService: HttpServiceService, private router: Router) { }
 
   ngOnInit() {
