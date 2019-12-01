@@ -10,7 +10,7 @@ import { Product } from './Product';
 export class HttpServiceService {
 
   constructor(private http: HttpClient) { }
-  private backUrl = "http://localhost:8080"
+  private backUrl = "https://onlineshop-ekb.herokuapp.com"
 
   login(login: string, password: string) {
     const myHeaders = new HttpHeaders().set('Content-Type', 'application/json');
