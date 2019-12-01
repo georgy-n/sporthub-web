@@ -9,13 +9,15 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 import {ReactiveFormsModule} from '@angular/forms';
 import { HomeComponent } from './home/home.component';
+import { HeaderComponent } from './home/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     AdminPanelComponent,
-    HomeComponent
+    HomeComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
