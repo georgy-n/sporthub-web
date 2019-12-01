@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Response } from '../infrastructure/Repsonse';
 import { Product } from './Product';
+import { User } from './User';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +14,7 @@ export class HttpServiceService {
   constructor(private http: HttpClient) { }
   private backUrl = "https://onlineshop-ekb.herokuapp.com"
 
-  login(login: string, password: string) {
+  login(login: string, password: string): Observable<String> {
     const myHeaders = new HttpHeaders().set('Content-Type', 'application/json');
     let body = JSON.stringify({
       username: login,
@@ -25,7 +27,11 @@ export class HttpServiceService {
           responseType: 'json',
           headers: myHeaders
         });
-    return req;
+    return req.pipe(map(answer => {
+      const res = answer.valueOf() as Response;
+      const token = this.handleReponse<String>(res);
+      return token;
+    }));
   }
 
   getAllProducts() {
@@ -41,5 +47,14 @@ export class HttpServiceService {
         }
       })
     );
+  }
+
+  private handleReponse<T>(response: Response) {
+    if (response && response.status === 'OK') {
+      const payload = response.payload.valueOf() as T;
+      return payload;
+    } else {
+      throw Error(response.message);
+    }
   }
 }
