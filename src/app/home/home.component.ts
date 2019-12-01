@@ -20,9 +20,4 @@ export class HomeComponent implements OnInit {
       this.products = resp;
     } );
   }
-
-  onSubmit() {
-    console.log("submit");
-    this.router.navigate(['/login']);
-  }
 }
