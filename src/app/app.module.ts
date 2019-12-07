@@ -11,6 +11,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './home/header/header.component';
 import { PersonalInfoComponent } from './home/personal-info/personal-info.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { PersonalInfoComponent } from './home/personal-info/personal-info.compon
     AdminPanelComponent,
     HomeComponent,
     HeaderComponent,
-    PersonalInfoComponent
+    PersonalInfoComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,

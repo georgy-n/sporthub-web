@@ -15,13 +15,4 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.logged = this.authService.isAuth;
   }
-
-  onSubmit() {
-    console.log("submit");
-    this.router.navigate(['/login']);
-  }
-
-  onClick() {
-    this.router.navigate(['/personalInfo']);
-  }
 }
