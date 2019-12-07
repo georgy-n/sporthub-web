@@ -5,6 +5,8 @@ import { Response } from '../infrastructure/Repsonse';
 import { Product } from './Product';
 import { User } from './User';
 import { Observable } from 'rxjs';
+import { headersToString } from 'selenium-webdriver/http';
+import { PersonalInfo } from './PersonalInfo';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,6 +15,7 @@ export class HttpServiceService {
 
   constructor(private http: HttpClient) { }
   private backUrl = "https://onlineshop-ekb.herokuapp.com"
+  // private backUrl = "http://localhost:5000"
 
   login(login: string, password: string): Observable<String> {
     const myHeaders = new HttpHeaders().set('Content-Type', 'application/json');
@@ -47,6 +50,19 @@ export class HttpServiceService {
         }
       })
     );
+  }
+
+  getPersonalInfo(token: String) {
+    return this.http.get(this.backUrl + "/api/userInfo", {headers:{"x-auth-token": token.toString()}}).pipe(
+      map(answer => {
+        console.log(answer)
+        const res = answer.valueOf() as Response;
+        if (res && res.status === 'OK') {
+          const products = res.payload.valueOf() as PersonalInfo;
+          return products;
+        } else { throw Error(res.message) }
+      })
+    )
   }
 
   private handleReponse<T>(response: Response) {

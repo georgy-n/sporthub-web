@@ -21,12 +21,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  onSubmitProfile() {
-    console.log("submit");
-    this.router.navigate(['/profile']);
-  }
-
   onClick() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/personalInfo']);
   }
 }

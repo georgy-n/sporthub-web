@@ -10,6 +10,7 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './home/header/header.component';
+import { PersonalInfoComponent } from './home/personal-info/personal-info.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HeaderComponent } from './home/header/header.component';
     LoginComponent,
     AdminPanelComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    PersonalInfoComponent
   ],
   imports: [
     BrowserModule,
