@@ -21,11 +21,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private formBuilder: FormBuilder) {
-      if (authService.isAuth) {
-        router.navigate(['home']);
-      }
-     }
+    private formBuilder: FormBuilder) {}
 
   get f() { return this.loginForm.controls; }
 

@@ -1,3 +1,59 @@
-<p>
-  registration works!
-</p>
+<app-header></app-header>
+
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col-sm-8 order-sm-1">
+      <h4 class="mb-3">Регистрация</h4>
+      <form [formGroup]="registration" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-sm-6 mb-3">
+            <label for="firstName">Имя</label>
+            <input type="text" formControlName="firstName" class="form-control" id="firstName" placeholder="Иван" required>
+            <div class="invalid-feedback">
+              Valid first name is required.
+            </div>
+          </div>
+          <div class="col-sm-6 mb-3">
+            <label for="lastName">Фамилия</label>
+            <input type="text" formControlName="lastName" class="form-control" id="lastName" placeholder="Иванов" required>
+            <div class="invalid-feedback">
+              Valid last name is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="login">Логин</label>
+          <div class="input-group">
+            <input type="text" formControlName="login" class="form-control" id="login" placeholder="example" required>
+            <div class="invalid-feedback" style="width: 100%;">
+              Your login is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="password">Пароль</label>
+            <div class="input-group">
+              <input type="text" formControlName="password" class="form-control" id="password" placeholder="example" required>
+              <div class="invalid-feedback" style="width: 100%;">
+                Your password is required.
+              </div>
+            </div>
+          </div>
+
+        <div class="mb-3">
+          <label for="email">Email</label>
+          <input type="email" formControlName="email" class="form-control" id="email" placeholder="you@example.com">
+          <div class="invalid-feedback">
+            Please enter a valid email address for shipping updates.
+          </div>
+        </div>
+        <button class="btn btn-primary btn-lg btn-block"  [disabled]="loading" type="submit">Зарегистрироваться</button>
+        <img *ngIf="loading"
+        src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+      
+      </form>
+    </div>
+  </div>
+</div>
