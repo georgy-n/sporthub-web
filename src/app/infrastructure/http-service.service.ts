@@ -7,6 +7,7 @@ import { User } from './User';
 import { Observable } from 'rxjs';
 import { headersToString } from 'selenium-webdriver/http';
 import { PersonalInfo } from './PersonalInfo';
+import { RegistrationRequest } from './RegistrationRequest';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,6 +17,23 @@ export class HttpServiceService {
   constructor(private http: HttpClient) { }
   private backUrl = "https://onlineshop-ekb.herokuapp.com"
   // private backUrl = "http://localhost:5000"
+
+  registration(registrationRequest: RegistrationRequest): Observable<User> {
+    const myHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    let body = JSON.stringify(registrationRequest);
+    let req =
+    this.http.post(this.backUrl + '/registration',
+      body,
+      {
+        responseType: 'json',
+        headers: myHeaders
+      });
+      return req.pipe(map(answer => {
+        const res = answer.valueOf() as Response;
+        const token = this.handleReponse<User>(res);
+        return token;
+      })); 
+  }
 
   login(login: string, password: string): Observable<String> {
     const myHeaders = new HttpHeaders().set('Content-Type', 'application/json');
@@ -52,10 +70,9 @@ export class HttpServiceService {
     );
   }
 
-  getPersonalInfo(token: String) {
+  getPersonalInfo(token: String): Observable<PersonalInfo> {
     return this.http.get(this.backUrl + "/api/userInfo", {headers:{"x-auth-token": token.toString()}}).pipe(
       map(answer => {
-        console.log(answer)
         const res = answer.valueOf() as Response;
         if (res && res.status === 'OK') {
           const products = res.payload.valueOf() as PersonalInfo;
