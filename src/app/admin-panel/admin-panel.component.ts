@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpServiceService } from '../infrastructure/http-service.service';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../login/user.service';
 import { Router } from '@angular/router';
 import { Product } from '../infrastructure/Product';
 import { Observable } from 'rxjs/internal/Observable';
 import { AgGridAngular } from 'ag-grid-angular';
+import { ProductRequest } from '../infrastructure/ProductRequest';
 
 @Component({
   selector: 'app-admin-panel',
@@ -17,9 +18,11 @@ export class AdminPanelComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular;
 
   products: Iterable<Product>;
+  addForm: FormGroup;
   private gridApi;
   private gridColumnApi;
 
+  loading: Boolean = false;
 
   columnDefs = [
     { headerName: 'ID', field: 'id', editable: false, resizable: true, checkboxSelection: true },
@@ -28,13 +31,17 @@ export class AdminPanelComponent implements OnInit {
     { headerName: 'Описание', field: 'description', editable: true, resizable: true }
   ];
 
-  constructor(private httpService: HttpServiceService, private userService: UserService, private router: Router) { }
+  constructor(private httpService: HttpServiceService, 
+    private userService: UserService, 
+    private router: Router,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    // this.httpService.getAllProducts().subscribe((resp: Iterable<Product>) => {
-    //   console.log(resp);
-    //   this.products = resp;
-    // } );
+    this.addForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      cost: ['', Validators.required],
+      description: ['', Validators.required]
+    });
   }
 
   deleteSelectedRows() {
@@ -82,5 +89,27 @@ export class AdminPanelComponent implements OnInit {
       console.log(cellDef.column.getId());
       console.log(cellDef.column);
     });
+  }
+
+  addProduct() {
+    if (this.addForm.invalid) {
+      return
+    } else {
+      this.loading = true
+      let controls = this.addForm.controls
+      let productRequest = new ProductRequest(
+        controls.name.value,
+        controls.cost.value,
+        controls.description.value)
+      this.httpService.addProduct(productRequest, this.userService.token).subscribe(
+        user => {
+          this.loading = false
+          this.addForm.reset()
+        },
+        err => {
+          this.loading = false;
+        }
+      )
+    }
   }
 }

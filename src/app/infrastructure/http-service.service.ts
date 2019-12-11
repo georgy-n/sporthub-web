@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { headersToString } from 'selenium-webdriver/http';
 import { PersonalInfo } from './PersonalInfo';
 import { RegistrationRequest } from './RegistrationRequest';
+import { ProductRequest } from './ProductRequest';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,6 +19,23 @@ export class HttpServiceService {
   private backUrl = "https://onlineshop-ekb.herokuapp.com"
   // private backUrl = "http://localhost:5000"
 
+  addProduct(productRequest: ProductRequest, token: String) {
+    const myHeaders = new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    .set("x-auth-token", token.toString());
+    let body = JSON.stringify(productRequest);
+    return this.http.post(this.backUrl + '/api/saveProduct',
+        body,
+        {
+          responseType: 'json',
+          headers: myHeaders
+        }).pipe(map(answer => {
+      const res = answer.valueOf() as Response;
+      if (res.status == "OK")
+        return;
+      else {throw new Error("add failed")} 
+    }));
+  }
   deleteProducts(productsId: Array<Number>, token: String) {
     
     const myHeaders = new HttpHeaders()
@@ -30,7 +48,6 @@ export class HttpServiceService {
           responseType: 'json',
           headers: myHeaders
         }).pipe(map(answer => {
-      console.log(answer)
       const res = answer.valueOf() as Response;
       if (res.status == "OK")
         return;
@@ -96,7 +113,6 @@ export class HttpServiceService {
         const res = answer.valueOf() as Response;
         if (res && res.status === 'OK') {
           const personalInfo = res.payload.valueOf() as PersonalInfo;
-          console.log(answer)
           return personalInfo;
         } else { throw Error(res.message) }
       })
@@ -104,7 +120,6 @@ export class HttpServiceService {
   }
 
   private handleReponse<T>(response: Response) {
-    console.log(response)
     if (response && response.status === 'OK') {
       const payload = response.payload.valueOf() as T;
       return payload;
