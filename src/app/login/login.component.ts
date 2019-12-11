@@ -1,4 +1,4 @@
-import { AuthService } from '../login/auth.service';
+import { UserService } from './user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { catchError, first, map, timeout } from 'rxjs/operators';
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   error: string;
 
   constructor(
-    private authService: AuthService,
+    private authService: UserService,
     private router: Router,
     private formBuilder: FormBuilder) {}
 

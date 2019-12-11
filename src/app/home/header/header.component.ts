@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/login/auth.service';
+import { UserService } from 'src/app/login/user.service';
 
 @Component({
   selector: 'app-header',
@@ -10,9 +10,15 @@ import { AuthService } from 'src/app/login/auth.service';
 export class HeaderComponent implements OnInit {
 
   public logged: Boolean = false;
-  constructor(private authService: AuthService, private router: Router) { }
+  public admin: Boolean = false;
+  constructor(private authService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.logged = this.authService.isAuth;
+    this.admin = this.logged && (this.authService.user.role == 'ADMIN') 
+  }
+
+  showAdmin() {
+    return this.admin;
   }
 }

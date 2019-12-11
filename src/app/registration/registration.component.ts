@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../login/auth.service';
+import { UserService } from '../login/user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RegistrationRequest } from '../infrastructure/RegistrationRequest';
 
@@ -14,7 +14,7 @@ export class RegistrationComponent implements OnInit {
   loading: Boolean;
   errors: String;
 
-  constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder) { }
+  constructor(private authService: UserService, private router: Router, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.rForm = this.formBuilder.group({

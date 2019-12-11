@@ -18,21 +18,41 @@ export class HttpServiceService {
   private backUrl = "https://onlineshop-ekb.herokuapp.com"
   // private backUrl = "http://localhost:5000"
 
+  deleteProducts(productsId: Array<Number>, token: String) {
+    
+    const myHeaders = new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    .set("x-auth-token", token.toString());
+    let body = JSON.stringify(productsId);
+    return this.http.post(this.backUrl + '/api/deleteProduct',
+        body,
+        {
+          responseType: 'json',
+          headers: myHeaders
+        }).pipe(map(answer => {
+      console.log(answer)
+      const res = answer.valueOf() as Response;
+      if (res.status == "OK")
+        return;
+      else {throw new Error("delete failed")} 
+    }));
+  }
+
   registration(registrationRequest: RegistrationRequest): Observable<User> {
     const myHeaders = new HttpHeaders().set('Content-Type', 'application/json');
     let body = JSON.stringify(registrationRequest);
     let req =
-    this.http.post(this.backUrl + '/registration',
-      body,
-      {
-        responseType: 'json',
-        headers: myHeaders
-      });
-      return req.pipe(map(answer => {
-        const res = answer.valueOf() as Response;
-        const token = this.handleReponse<User>(res);
-        return token;
-      })); 
+      this.http.post(this.backUrl + '/registration',
+        body,
+        {
+          responseType: 'json',
+          headers: myHeaders
+        });
+    return req.pipe(map(answer => {
+      const res = answer.valueOf() as Response;
+      const token = this.handleReponse<User>(res);
+      return token;
+    }));
   }
 
   login(login: string, password: string): Observable<String> {
@@ -55,7 +75,7 @@ export class HttpServiceService {
     }));
   }
 
-  getAllProducts() {
+  getAllProducts(): Observable<Iterable<Product>> {
     return this.http.get(this.backUrl + "/api/allProducts").pipe(
       map(answer => {
         const res = answer.valueOf() as Response;
@@ -71,18 +91,20 @@ export class HttpServiceService {
   }
 
   getPersonalInfo(token: String): Observable<PersonalInfo> {
-    return this.http.get(this.backUrl + "/api/userInfo", {headers:{"x-auth-token": token.toString()}}).pipe(
+    return this.http.get(this.backUrl + "/api/userInfo", { headers: { "x-auth-token": token.toString() } }).pipe(
       map(answer => {
         const res = answer.valueOf() as Response;
         if (res && res.status === 'OK') {
-          const products = res.payload.valueOf() as PersonalInfo;
-          return products;
+          const personalInfo = res.payload.valueOf() as PersonalInfo;
+          console.log(answer)
+          return personalInfo;
         } else { throw Error(res.message) }
       })
     )
   }
 
   private handleReponse<T>(response: Response) {
+    console.log(response)
     if (response && response.status === 'OK') {
       const payload = response.payload.valueOf() as T;
       return payload;

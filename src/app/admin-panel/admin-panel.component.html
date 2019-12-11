@@ -1,0 +1,23 @@
+<app-header></app-header>
+<button (click)="changeSize()">Нажми и таблица будет по размеру</button>
+<button (click)="update()">Нажми и таблица обновиться</button>
+
+<div class='container-fluid' style='height: 250px;'>
+    <ag-grid-angular 
+        #agGrid
+        class="ag-theme-balham" 
+        
+      style="width: 100%; height: 100%;"
+        [enableFilter]="true" 
+        [enableSorting]="true"
+        [rowData]="products"
+        [columnDefs]="columnDefs"
+        rowSelection="multiple"
+        (gridReady)="onGridReady($event)"
+        >
+    </ag-grid-angular>
+</div>
+<button (click)="deleteSelectedRows()">Удалить выбранные товары</button>
+<button (click)="saveEditedProduct()">Сохранить изменения</button>
+
+<button (click)="getSelectedRows()">Добавить товар</button>

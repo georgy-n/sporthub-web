@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpServiceService } from '../infrastructure/http-service.service';
 import { Observable } from 'rxjs';
 import { User } from '../infrastructure/User';
-import { map } from 'rxjs/operators';
+import { map, flatMap } from 'rxjs/operators';
 import { RegistrationRequest } from '../infrastructure/RegistrationRequest';
+import { PersonalInfo } from '../infrastructure/PersonalInfo';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class UserService {
 
   public isAuth: Boolean = false;
   public user: User;
@@ -18,10 +19,14 @@ export class AuthService {
   constructor(private http: HttpServiceService) { }
 
   public login(login: string, password: string): Observable<String> {
-    return this.http.login(login, password).pipe(map(token => {
+    return this.http.login(login, password).pipe(flatMap(token => {
       this.token = token;
       this.isAuth = true;
-      return token;
+      return this.http.getPersonalInfo(token).pipe(map(personalInfo => {
+        console.log(personalInfo)
+        this.user = new User(personalInfo.firstName, personalInfo.lastName, personalInfo.login, personalInfo.role)
+        return token;
+      }))
     }));
   }
 
