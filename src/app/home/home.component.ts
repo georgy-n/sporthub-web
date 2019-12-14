@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpServiceService } from '../infrastructure/http-service.service';
-import { Response } from '../infrastructure/Repsonse';
-import { Product } from '../infrastructure/Product';
+import { Response } from '../infrastructure/classes/Repsonse';
+import { Product } from '../infrastructure/classes/Product';
 import { Router } from '@angular/router';
-import { UserService } from '../login/user.service';
+import { UserService } from '../infrastructure/user.service';
 
 @Component({
   selector: 'app-home',
@@ -13,10 +13,11 @@ import { UserService } from '../login/user.service';
 export class HomeComponent implements OnInit {
 
   products: Iterable<Product> = [];
-  constructor(private httpService: HttpServiceService, private authService: UserService, private router: Router) { }
+  logged: Boolean = false;
+  constructor(private httpService: HttpServiceService, private userService: UserService, private router: Router) {
+    userService.isUserLoggedIn.subscribe(v => this.logged = v)
+   }
 
-  isAuth() {return this.authService.isAuth;}
-  
   ngOnInit() {
     this.httpService.getAllProducts().subscribe((resp: Iterable<Product>) => {
       console.log(resp);

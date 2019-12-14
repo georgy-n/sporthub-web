@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/login/user.service';
+import { UserService } from 'src/app/infrastructure/user.service';
 
 @Component({
   selector: 'app-header',
@@ -11,11 +11,13 @@ export class HeaderComponent implements OnInit {
 
   public logged: Boolean = false;
   public admin: Boolean = false;
+  public basketSize: Number = 0;
+  
   constructor(private authService: UserService, private router: Router) { }
 
   ngOnInit() {
-    this.logged = this.authService.isAuth;
-    this.admin = this.logged && (this.authService.user.role == 'ADMIN') 
+    this.authService.isUserLoggedIn.subscribe(value => this.logged = value);
+    this.authService.isAdmin.subscribe(value => this.admin = value) 
   }
 
   showAdmin() {

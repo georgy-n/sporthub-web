@@ -9,10 +9,11 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 import {ReactiveFormsModule} from '@angular/forms';
 import { HomeComponent } from './home/home.component';
-import { HeaderComponent } from './home/header/header.component';
-import { PersonalInfoComponent } from './home/personal-info/personal-info.component';
+import { HeaderComponent } from './header/header.component';
+import { PersonalInfoComponent } from './personal-info/personal-info.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { AgGridModule } from 'ag-grid-angular';
+import { BucketComponent } from './bucket/bucket.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AgGridModule } from 'ag-grid-angular';
     HomeComponent,
     HeaderComponent,
     PersonalInfoComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    BucketComponent
   ],
   imports: [
     BrowserModule,

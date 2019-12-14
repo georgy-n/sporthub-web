@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PersonalInfo } from 'src/app/infrastructure/PersonalInfo';
+import { PersonalInfo } from 'src/app/infrastructure/classes/PersonalInfo';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/login/user.service';
+import { UserService } from 'src/app/infrastructure/user.service';
 import { HttpServiceService } from 'src/app/infrastructure/http-service.service';
 
 @Component({
@@ -13,14 +13,12 @@ export class PersonalInfoComponent implements OnInit {
 
   public personalInfo: PersonalInfo = new PersonalInfo();
 
-  constructor(private httpService: HttpServiceService, private authService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
-    if(this.authService.isAuth){
-      this.httpService.getPersonalInfo(this.authService.token).subscribe((resp: PersonalInfo) => {
-        this.personalInfo = resp;
-      });
-    }
+    this.userService.getPersonalInfo().subscribe((resp: PersonalInfo) => {
+      this.personalInfo = resp;
+    });
   }
 
 }

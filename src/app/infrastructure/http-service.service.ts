@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Response } from '../infrastructure/Repsonse';
-import { Product } from './Product';
-import { User } from './User';
+import { Response } from './classes/Repsonse';
+import { Product } from './classes/Product';
+import { User } from './classes/User';
 import { Observable } from 'rxjs';
 import { headersToString } from 'selenium-webdriver/http';
-import { PersonalInfo } from './PersonalInfo';
-import { RegistrationRequest } from './RegistrationRequest';
-import { ProductRequest } from './ProductRequest';
+import { PersonalInfo } from './classes/PersonalInfo';
+import { RegistrationRequest } from './classes/RegistrationRequest';
+import { ProductRequest } from './classes/ProductRequest';
 @Injectable({
   providedIn: 'root'
 })

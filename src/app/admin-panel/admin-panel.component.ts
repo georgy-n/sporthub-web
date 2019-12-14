@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpServiceService } from '../infrastructure/http-service.service';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserService } from '../login/user.service';
+import { UserService } from '../infrastructure/user.service';
 import { Router } from '@angular/router';
-import { Product } from '../infrastructure/Product';
+import { Product } from '../infrastructure/classes/Product';
 import { Observable } from 'rxjs/internal/Observable';
 import { AgGridAngular } from 'ag-grid-angular';
-import { ProductRequest } from '../infrastructure/ProductRequest';
+import { ProductRequest } from '../infrastructure/classes/ProductRequest';
 
 @Component({
   selector: 'app-admin-panel',
