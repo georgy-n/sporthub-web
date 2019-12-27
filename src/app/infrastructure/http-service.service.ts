@@ -9,6 +9,7 @@ import { headersToString } from 'selenium-webdriver/http';
 import { PersonalInfo } from './classes/PersonalInfo';
 import { RegistrationRequest } from './classes/RegistrationRequest';
 import { ProductRequest } from './classes/ProductRequest';
+import { OrderRequest } from './classes/OrderRequest';
 @Injectable({
   providedIn: 'root'
 })
@@ -69,6 +70,24 @@ export class HttpServiceService {
       const res = answer.valueOf() as Response;
       const token = this.handleReponse<User>(res);
       return token;
+    }));
+  }
+
+  createOrder(orderRequest: OrderRequest, token: String): Observable<void> {
+    const myHeaders = new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    .set("x-auth-token", token.toString());
+    let body = JSON.stringify(orderRequest);
+    return this.http.post(this.backUrl + '/api/createOrder',
+        body,
+        {
+          responseType: 'json',
+          headers: myHeaders
+        }).pipe(map(answer => {
+      const res = answer.valueOf() as Response;
+      if (res.status == "OK")
+        return;
+      else {throw new Error("creating order failed")} 
     }));
   }
 

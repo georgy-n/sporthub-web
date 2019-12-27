@@ -1,3 +1,29 @@
-<p>
-  bucket works!
-</p>
+<div class="jumbotron bg-white">
+
+  <div class='container pt-5'>
+    <div *ngFor="let product of basket">
+      <div class="row">
+        <div class="card-body border">
+          <h4 class="my-0 font-weight-normal">{{product.name}}</h4>
+          <h5 class="card-title pricing-card-title">${{product.cost}}</h5>
+          <p class="card-text">
+            {{product.description}}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <form [formGroup]="orderForm" (ngSubmit)="order()">
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" formControlName="email" class="form-control" id="email" />
+      </div>
+      <div class="form-group">
+        <button type="button" (click)="order()" [disabled]="loading"
+          class="btn btn-lg btn-block btn-outline-primary">Заказать</button>
+      </div>
+    </form>
+  </div>
+
+</div>
