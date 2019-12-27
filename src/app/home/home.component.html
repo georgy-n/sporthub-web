@@ -1,4 +1,4 @@
-<div class='container'>
+<div class='container mt-5 pt-5'>
   <div class="row">
     <div class="card-deck">
         <div *ngFor="let product of products" class="card mb-4 shadow-sm" style="min-width: 18rem;">
@@ -11,9 +11,12 @@
             </p>
           </div>
           <div class="card-footer">
-            <button *ngIf="logged" type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
-            <button *ngIf="!logged" type="button" class="btn btn-lg btn-block btn-outline-primary">Войдите чтобы
-              купить</button>
+            <button 
+            *ngIf="logged" 
+            type="button" 
+            (click)="addToBasket(product)" 
+            class="btn btn-lg btn-block btn-outline-primary">Купить</button>
+            <button *ngIf="!logged" type="button" class="btn btn-lg btn-block btn-outline-primary">Войдите чтобы купить</button>
           </div>
         </div>
     </div>
