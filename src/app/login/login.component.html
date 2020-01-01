@@ -1,10 +1,10 @@
 <div class="jumbotron bg-white">
   <div class="container pt-5">
-    <div class="row">
+    <div class="row pt-5">
       <div class="col-sm-6 offset-sm-3">
 
 
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="pt-5">
           <div class="form-group">
             <label for="username">Логин</label>
             <input type="text" formControlName="username" class="form-control" id="username"
@@ -31,6 +31,8 @@
             <a routerLink="/registration" class="btn btn-link">Зарегистрироваться</a>
           </div>
         </form>
+
+
       </div>
     </div>
   </div>
