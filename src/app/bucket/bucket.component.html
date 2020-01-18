@@ -7,7 +7,7 @@
           <h4 class="my-0 font-weight-normal">{{product.name}}</h4>
           <h5 class="card-title pricing-card-title">${{product.cost}}</h5>
           <p class="card-text">
-            {{product.description}}
+            {{countProduct[product.id.toString()]}} шт.
           </p>
         </div>
       </div>
@@ -22,8 +22,11 @@
       <div class="form-group">
         <button type="button" (click)="order()"
           class="btn btn-lg btn-block btn-outline-primary">Заказать</button>
+          <button type="button" (click)="clean()"
+          class="btn btn-lg btn-block btn-outline-primary">Очистить корзину</button>
       </div>
     </form>
+
   </div>
 
 </div>

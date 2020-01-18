@@ -1,9 +1,9 @@
 export class OrderRequest {
     email: String;
-    productIds: Array<Number>;
+    productIds: {[id: string]: number};
 
     constructor(email: String,
-        productIds: Array<Number>) {
+        productIds: {[id: string]: number}) {
 
         this.email = email;
         this.productIds = productIds;

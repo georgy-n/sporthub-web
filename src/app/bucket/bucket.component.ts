@@ -13,12 +13,15 @@ export class BucketComponent implements OnInit {
 
   orderForm: FormGroup;
   basket: Array<Product> = []
+  countProduct: {[key: string]: Number} = {}
+
   constructor(
     private userService: UserService,
     private basketStorage: BasketStorageService,
     private formBuilder: FormBuilder) {
     this.basketStorage.basket.subscribe(value => this.basket = value)
-   }
+    this.basketStorage.countProduct.subscribe(v => this.countProduct = v)
+  }
 
   ngOnInit() {
     this.orderForm = this.formBuilder.group({
@@ -26,6 +29,9 @@ export class BucketComponent implements OnInit {
     });
   }
 
+  clean() {
+    this.basketStorage.clean()
+  }
   order() {
     if (this.orderForm.invalid) {
       return;
@@ -34,6 +40,7 @@ export class BucketComponent implements OnInit {
     let controls = this.orderForm.controls
     this.basketStorage.createOrder(controls.email.value, this.basket, this.userService.token).subscribe(
       v => {
+        this.basketStorage.clean()
       },
       err => {
       }
