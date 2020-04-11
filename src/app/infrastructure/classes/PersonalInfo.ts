@@ -1,6 +1,5 @@
 export class PersonalInfo {
     firstName: String;
-    lastName: String;
+    secondName: String;
     login: String;
-    role: String;
 }

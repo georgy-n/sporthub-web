@@ -1,5 +1,5 @@
 export class Response {
     status: string;
-    message: string;
+    trackingId: string;
     payload: Object;
 }

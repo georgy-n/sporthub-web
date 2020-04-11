@@ -10,6 +10,8 @@ import { PersonalInfo } from './classes/PersonalInfo';
 import { RegistrationRequest } from './classes/RegistrationRequest';
 import { ProductRequest } from './classes/ProductRequest';
 import { OrderRequest } from './classes/OrderRequest';
+import { LoginResponse } from './classes/LoginResponse';
+import { ErrorResponse } from './classes/ErrorRepsonse';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,50 +19,120 @@ import { OrderRequest } from './classes/OrderRequest';
 export class HttpServiceService {
 
   constructor(private http: HttpClient) { }
-  // private backUrl = "https://onlineshop-ekb.herokuapp.com"
-  private backUrl = "http://localhost:5000"
+  private backUrl = "https://sport-hub-ekb.herokuapp.com"
+  // private backUrl = "http://localhost:5000"
 
-  addProduct(productRequest: ProductRequest, token: String) {
-    const myHeaders = new HttpHeaders()
-    .set('Content-Type', 'application/json')
-    .set("x-auth-token", token.toString());
-    let body = JSON.stringify(productRequest);
-    return this.http.post(this.backUrl + '/api/saveProduct',
-        body,
-        {
-          responseType: 'json',
-          headers: myHeaders
-        }).pipe(map(answer => {
-      const res = answer.valueOf() as Response;
-      if (res.status == "OK")
-        return;
-      else {throw new Error("add failed")} 
-    }));
-  }
-  deleteProducts(productsId: Array<Number>, token: String) {
+  // addProduct(productRequest: ProductRequest, token: String) {
+  //   const myHeaders = new HttpHeaders()
+  //   .set('Content-Type', 'application/json')
+  //   .set("x-auth-token", token.toString());
+  //   let body = JSON.stringify(productRequest);
+  //   return this.http.post(this.backUrl + '/api/saveProduct',
+  //       body,
+  //       {
+  //         responseType: 'json',
+  //         headers: myHeaders
+  //       }).pipe(map(answer => {
+  //     const res = answer.valueOf() as Response;
+  //     if (res.status == "OK")
+  //       return;
+  //     else {throw new Error("add failed")} 
+  //   }));
+  // }
+  // deleteProducts(productsId: Array<Number>, token: String) {
     
+  //   const myHeaders = new HttpHeaders()
+  //   .set('Content-Type', 'application/json')
+  //   .set("x-auth-token", token.toString());
+  //   let body = JSON.stringify(productsId);
+  //   return this.http.post(this.backUrl + '/api/deleteProduct',
+  //       body,
+  //       {
+  //         responseType: 'json',
+  //         headers: myHeaders
+  //       }).pipe(map(answer => {
+  //     const res = answer.valueOf() as Response;
+  //     if (res.status == "OK")
+  //       return;
+  //     else {throw new Error("delete failed")} 
+  //   }));
+  // }
+
+
+  // createOrder(orderRequest: OrderRequest, token: String): Observable<void> {
+  //   const myHeaders = new HttpHeaders()
+  //   .set('Content-Type', 'application/json')
+  //   .set("x-auth-token", token.toString());
+  //   let body = JSON.stringify(orderRequest);
+  //   return this.http.post(this.backUrl + '/api/createOrder',
+  //       body,
+  //       {
+  //         responseType: 'json',
+  //         headers: myHeaders
+  //       }).pipe(map(answer => {
+  //     const res = answer.valueOf() as Response;
+  //     if (res.status == "OK")
+  //       return;
+  //     else {throw new Error("creating order failed")} 
+  //   }));
+  // }
+
+  
+  // getAllProducts(): Observable<Iterable<Product>> {
+  //   return this.http.get(this.backUrl + "/api/allProducts").pipe(
+  //     map(answer => {
+  //       const res = answer.valueOf() as Response;
+  //       if (res && res.status === 'OK') {
+  //         const products = res.payload.valueOf() as Iterable<Product>;
+  //         return products;
+
+  //       } else {
+  //         throw Error(res.message);
+  //       }
+  //     })
+  //   );
+  // }
+
+  login(login: string, password: string): Observable<String> {
     const myHeaders = new HttpHeaders()
-    .set('Content-Type', 'application/json')
-    .set("x-auth-token", token.toString());
-    let body = JSON.stringify(productsId);
-    return this.http.post(this.backUrl + '/api/deleteProduct',
+    .set('Content-Type', 'application/json');
+    let body = JSON.stringify({
+      login: login,
+      password: password
+    });
+    let req =
+      this.http.post(this.backUrl + '/user/login',
         body,
         {
           responseType: 'json',
           headers: myHeaders
-        }).pipe(map(answer => {
+        });
+    return req.pipe(map(answer => {
       const res = answer.valueOf() as Response;
-      if (res.status == "OK")
-        return;
-      else {throw new Error("delete failed")} 
+      const response = this.handleReponse<LoginResponse>(res);
+      return response.session;
     }));
   }
 
+  getPersonalInfo(token: String): Observable<PersonalInfo> {
+    return this.http.get(
+      this.backUrl + "/user/personalInfo", 
+      { headers: { "Authorization": "Bearer " + token.toString() } })
+      .pipe(
+        map(answer => {
+          const res = answer.valueOf() as Response;
+          const response = this.handleReponse<PersonalInfo>(res);
+          return response;
+        })
+    )
+  }
+
+  
   registration(registrationRequest: RegistrationRequest): Observable<User> {
     const myHeaders = new HttpHeaders().set('Content-Type', 'application/json');
     let body = JSON.stringify(registrationRequest);
     let req =
-      this.http.post(this.backUrl + '/registration',
+      this.http.post(this.backUrl + '/user/registration',
         body,
         {
           responseType: 'json',
@@ -73,79 +145,13 @@ export class HttpServiceService {
     }));
   }
 
-  createOrder(orderRequest: OrderRequest, token: String): Observable<void> {
-    const myHeaders = new HttpHeaders()
-    .set('Content-Type', 'application/json')
-    .set("x-auth-token", token.toString());
-    let body = JSON.stringify(orderRequest);
-    return this.http.post(this.backUrl + '/api/createOrder',
-        body,
-        {
-          responseType: 'json',
-          headers: myHeaders
-        }).pipe(map(answer => {
-      const res = answer.valueOf() as Response;
-      if (res.status == "OK")
-        return;
-      else {throw new Error("creating order failed")} 
-    }));
-  }
-
-  login(login: string, password: string): Observable<String> {
-    const myHeaders = new HttpHeaders()
-    .set('Content-Type', 'application/json')
-    .set("Bearer", "123456");;
-    let body = JSON.stringify({
-      username: login,
-      password: password
-    });
-    let req =
-      this.http.post(this.backUrl + '/user/auth',
-        body,
-        {
-          responseType: 'json',
-          headers: myHeaders
-        });
-    return req.pipe(map(answer => {
-      const res = answer.valueOf() as Response;
-      const token = this.handleReponse<String>(res);
-      return token;
-    }));
-  }
-
-  getAllProducts(): Observable<Iterable<Product>> {
-    return this.http.get(this.backUrl + "/api/allProducts").pipe(
-      map(answer => {
-        const res = answer.valueOf() as Response;
-        if (res && res.status === 'OK') {
-          const products = res.payload.valueOf() as Iterable<Product>;
-          return products;
-
-        } else {
-          throw Error(res.message);
-        }
-      })
-    );
-  }
-
-  getPersonalInfo(token: String): Observable<PersonalInfo> {
-    return this.http.get(this.backUrl + "/api/userInfo", { headers: { "x-auth-token": token.toString() } }).pipe(
-      map(answer => {
-        const res = answer.valueOf() as Response;
-        if (res && res.status === 'OK') {
-          const personalInfo = res.payload.valueOf() as PersonalInfo;
-          return personalInfo;
-        } else { throw Error(res.message) }
-      })
-    )
-  }
-
   private handleReponse<T>(response: Response) {
-    if (response && response.status === 'OK') {
+    if (response && response.status === 'Ok') {
       const payload = response.payload.valueOf() as T;
       return payload;
     } else {
-      throw Error(response.message);
+      const errorResponse = response.payload.valueOf() as ErrorResponse;
+      throw Error(errorResponse.message);
     }
   }
 }

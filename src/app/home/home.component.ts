@@ -4,7 +4,6 @@ import { Response } from '../infrastructure/classes/Repsonse';
 import { Product } from '../infrastructure/classes/Product';
 import { Router } from '@angular/router';
 import { UserService } from '../infrastructure/user.service';
-import { BasketStorageService } from '../infrastructure/basket-storage.service';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +16,6 @@ export class HomeComponent implements OnInit {
   logged: Boolean = false;
 
   constructor(
-    private basketStorage: BasketStorageService,
     private httpService: HttpServiceService, 
     private userService: UserService, 
     private router: Router) {
@@ -25,12 +23,5 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.httpService.getAllProducts().subscribe((resp: Iterable<Product>) => {
-      this.products = resp;
-    } );
-  }
-
-  addToBasket(product: Product) {
-    this.basketStorage.saveProduct(product)
   }
 }
