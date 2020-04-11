@@ -17,8 +17,8 @@ import { OrderRequest } from './classes/OrderRequest';
 export class HttpServiceService {
 
   constructor(private http: HttpClient) { }
-  private backUrl = "https://onlineshop-ekb.herokuapp.com"
-  // private backUrl = "http://localhost:5000"
+  // private backUrl = "https://onlineshop-ekb.herokuapp.com"
+  private backUrl = "http://localhost:5000"
 
   addProduct(productRequest: ProductRequest, token: String) {
     const myHeaders = new HttpHeaders()
@@ -92,13 +92,15 @@ export class HttpServiceService {
   }
 
   login(login: string, password: string): Observable<String> {
-    const myHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const myHeaders = new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    .set("Bearer", "123456");;
     let body = JSON.stringify({
       username: login,
       password: password
     });
     let req =
-      this.http.post(this.backUrl + '/authenticate',
+      this.http.post(this.backUrl + '/user/auth',
         body,
         {
           responseType: 'json',
