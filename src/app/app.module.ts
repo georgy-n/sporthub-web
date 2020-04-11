@@ -12,6 +12,8 @@ import { HeaderComponent } from './header/header.component';
 import { PersonalInfoComponent } from './personal-info/personal-info.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { AgGridModule } from 'ag-grid-angular';
+import { SearchActivityComponent } from './search-activity/search-activity.component';
+import { OfferActivityComponent } from './offer-activity/offer-activity.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { AgGridModule } from 'ag-grid-angular';
     HeaderComponent,
     PersonalInfoComponent,
     RegistrationComponent,
+    SearchActivityComponent,
+    OfferActivityComponent,
   ],
   imports: [
     BrowserModule,

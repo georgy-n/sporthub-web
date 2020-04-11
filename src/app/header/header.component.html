@@ -4,8 +4,11 @@
   </h5>
 
   <nav class="my-2 my-md-0 mr-md-3">
+    <a class="p-2 text-dark" routerLink="/search-activity">Найти</a>
+    <a class="p-2 text-dark" routerLink="/offer-activity">Предложить</a>
     <a *ngIf="showAdmin()" class="p-2 text-dark" routerLink="/admin">Админ панель</a>
     <a *ngIf="logged" class="p-2 text-dark" routerLink="/personalInfo">Личный кабинет</a>
   </nav>
+  
   <a *ngIf="!logged" class="btn btn-outline-primary" routerLink="/login">Войти</a>
 </div>

@@ -7,6 +7,8 @@ import { PersonalInfoComponent } from './personal-info/personal-info.component';
 import { PersonalInfoGuard } from './guards/personalInfo.guard';
 import { RegistrationComponent } from './registration/registration.component';
 import { RegistrationGuard } from './guards/registration.guard';
+import { SearchActivityComponent } from './search-activity/search-activity.component';
+import { OfferActivityComponent } from './offer-activity/offer-activity.component';
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
@@ -14,7 +16,8 @@ const routes: Routes = [
   {path: "login", component: LoginComponent, canActivate: [RegistrationGuard]},
   {path: "personalInfo", component: PersonalInfoComponent, canActivate: [PersonalInfoGuard]},
   {path: "registration", component: RegistrationComponent, canActivate: [RegistrationGuard]},
-
+  {path: "search-activity", component: SearchActivityComponent, canActivate: [PersonalInfoGuard]},
+  {path: "offer-activity", component: OfferActivityComponent, canActivate: [PersonalInfoGuard]},
 ];
 
 @NgModule({
