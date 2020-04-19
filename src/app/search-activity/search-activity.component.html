@@ -1,14 +1,16 @@
-<div class='container mt-5 pt-5'>
-  <div *ngFor="let activity of activities">
-    {{activity.id}}
-    {{activity.description}}
-    {{activity.category}}
-    {{activity.subCategory}}
-    {{activity.owner}}
-    {{activity.countPerson}}
-    {{activity.status}}
-    {{activity.date}}
+<div class="jumbotron bg-white">
+  <div class='container pt-5'>
+    <div *ngFor="let activity of activities">
+      {{activity.id}}
+      {{activity.description}}
+      {{activity.category}}
+      {{activity.subCategory}}
+      {{activity.owner}}
+      {{activity.countPerson}}
+      {{activity.status}}
+      {{activity.date}}
 
+    </div>
+    search-activity works!
   </div>
-  search-activity works!
 </div>

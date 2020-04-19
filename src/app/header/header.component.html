@@ -1,14 +1,19 @@
-<div class="d-flex flex-column fixed-top flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-  <h5 class="my-0 mr-md-auto font-weight-normal">
-    <a class="p-2 text-dark" routerLink="/home">Activity</a>
-  </h5>
+<div class="header__container">
+  <div class="header__body">
 
-  <nav class="my-2 my-md-0 mr-md-3">
-    <a class="p-2 text-dark" routerLink="/search-activity">Найти</a>
-    <a class="p-2 text-dark" routerLink="/offer-activity">Предложить</a>
-    <a *ngIf="showAdmin()" class="p-2 text-dark" routerLink="/admin">Админ панель</a>
-    <a *ngIf="logged" class="p-2 text-dark" routerLink="/personalInfo">Личный кабинет</a>
-  </nav>
-  
-  <a *ngIf="!logged" class="btn btn-outline-primary" routerLink="/login">Войти</a>
+    <a class="header__logo" routerLink="/home">Activity</a>
+    
+    <div class="header__burger">
+      <span></span>
+    </div>
+
+    <ul class="nav">
+      <li><a routerLink="/search-activity" class="nav__link">Найти</a></li>
+      <li><a routerLink="/offer-activity" class="nav__link">Предложить</a></li>
+      <li><a *ngIf="logged" routerLink="/personalInfo" class="nav__link">Личный кабинет</a></li>
+      <li><a *ngIf="!logged" routerLink="/registration" class="nav__link">Регистрация</a></li>
+      <li><a *ngIf="!logged" routerLink="/login" class="nav__link">Войти</a></li>
+    </ul>
+
+  </div>
 </div>
