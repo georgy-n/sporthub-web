@@ -1,0 +1,455 @@
+
+h1, h2, p {
+	margin: 0;
+}
+
+
+/* Intro */
+.intro{
+	background: url(../../assets/back1.jpg) center no-repeat;
+	background-size: cover;
+	padding-top: 80px;
+}
+
+.intro__container{
+	padding: 40px 0px;
+	max-width: 1100px;
+	margin: 0 auto;
+	height: 450px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
+.intro__content{
+	padding: 0px 30px;
+	max-width: 500px;
+}
+
+.intro__title{
+	font-size: 58px;
+	color: white;
+	font-weight: 600;
+	line-height: 1.3;
+	letter-spacing: 2px;
+	margin: 0px 0px 30px 0px;
+}
+
+.intro__subtitle{
+	font-size: 22px;
+	font-weight: normal;
+	color: white;
+	line-height: 1.3;
+	margin: 0px 0px 80px 0px;
+}
+
+.intro__button{
+	display: inline-block;
+	background-color: #228bcc;
+	border-radius: 30px;
+	text-decoration: none;
+	font-weight: 700;
+	color: white;
+	padding: 20px 60px;
+}
+
+.intro__button:hover{
+	background-color: #1256ac;
+	transition: .2s linear;
+}
+
+
+@media (max-width: 800px) {
+	.intro__title{
+		font-size: 50px;
+	}
+	
+}
+
+@media (max-width: 500px) {
+	.intro__title{
+		font-size: 40px;
+	}
+}
+
+@media (max-width: 340px) {
+	.intro__title{
+		font-size: 37px;
+	}
+	.intro__subtitle{
+		font-size: 20px;
+	}
+	.intro__content{
+		padding: 0;
+		margin: 0 20px;
+	}
+	.intro__button{
+		padding: 20px 30px;
+	}
+}
+
+@media (max-width: 290px) {
+	.intro__title{
+		font-size: 34px;
+	}
+}
+
+@media (max-width: 767px) {
+	.intro{
+		padding-top: 50px;
+	}
+	.intro__container{
+		
+	}
+}
+
+/* Suggest */
+
+.suggest{
+	max-width: 100%;
+}
+
+.photo__left{
+	pointer-events: none;
+	max-width: 560px;
+	max-height: 340px;
+	margin-bottom: -4px;
+
+	padding: 0;
+}
+
+.text__but{
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	padding: 0px 30px 0px 0px;
+	justify-content: center;
+}
+
+.sug__container{
+	box-sizing: border-box;
+	max-width: 1230px;
+	padding: 90px 30px;
+	margin: 0 auto;
+	
+}
+
+.sug__content{
+	display: flex;
+	margin: 0 -10px;
+}
+
+.sug__column{
+	padding: 0 10px;
+}
+@media (max-width: 950px){
+	.sug__content{
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		margin: 0;
+	}
+	.text__but{
+		display: flex;
+		flex-direction: column;
+		margin: 0;
+		padding: 30px 0px 0px 0px;
+		max-width: 560px;
+	}
+	.photo__left{
+		width: 100%;
+	}
+	
+	.sug__column{
+		padding: 0;
+	}
+}
+
+.sug__title{
+	font-size: 26px;
+	color: #454545;
+	line-height: 1.5;
+	margin-bottom: 20px;
+	font-weight: 600;
+}
+
+.sug__subtitle{
+	line-height: 1.5;
+	font-weight: 500;
+	font-size: 18px;
+	color: #7f7f7f;
+}
+
+.text{
+	margin-bottom: 30px;
+}
+
+.sug__btn{
+	text-decoration: none;
+	color: white;
+	background-color: #228bcc;
+
+	padding: 15px 30px;
+	
+	display: inline-block;
+	border-radius: 30px;
+	
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.sug__btn:hover{
+	background-color: #1256ac;
+	transition: .2s linear;
+}
+
+
+
+
+/* Example */
+.example{
+	background-color: #29b297;
+}
+
+.example__container{
+	box-sizing: border-box;
+	padding: 60px 30px;
+	max-width: 1230px;
+	margin: 0 auto;	
+}
+
+
+@media (max-width: 920px) {
+	.example__row{
+		flex-direction: column;
+		align-items: center;
+	}
+	.example__button{
+		min-width: 250px;
+		max-height: 60px;
+		padding: 0;
+	}
+	.example__column{
+		margin: 0px 0px 40px 0px;
+	}
+	.example__column:last-child{
+		margin: 0;
+	}
+	.example__title{
+		padding-bottom: 30px;
+	}
+}
+@media (max-width: 390px) {
+	.example__button{
+		min-width: 220px;
+		max-height: 60px;
+		padding: 0;
+	}
+	.example__column{
+		display: flex;
+		justify-content: center;
+	}
+	
+}
+@media (max-width: 355px) {
+	.example__button{
+		min-width: 200px;
+	}
+}
+@media (max-width: 290px) {
+	.example__button{
+		min-width: 150px;
+	}
+}
+
+.example__title{
+	color: white;
+	font-size: 40px;
+	text-align: center;
+	line-height: 1.1;
+	font-weight: 400;
+	margin: 0px 0px 50px 0px;
+}
+
+.example__row{
+	display: flex;
+	justify-content: space-between;
+	margin: 0 -15px;
+}
+
+.example__column{
+	padding: 0 15px;
+	flex-grow: 1;
+	flex-shrink: 1;
+}
+
+.example__columns{
+	width: 100%;
+}
+.example__button{
+	text-decoration: none;
+	border-radius: 10px;
+	background-color: white;
+	display: flex;
+	height: 70px;
+
+	padding: 20px;
+
+	color: #454545;
+	font-size: 25px;
+	font-weight: 600;
+
+	box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.example__button:hover{
+	background-color: #e3e3e3;
+	transition: .3s;
+}
+
+
+
+/* How it works */
+.work{
+	background-color: #f0f0f0;
+}
+
+.work__title{
+	color: #454545;
+	text-align: center;
+	font-size: 40px;
+	font-weight: 600;
+	margin-bottom: 100px;
+	line-height: 1.1;
+}
+
+.work__columns{
+	display: flex;
+	justify-content: space-between;
+	margin: 0 -10px;
+}
+
+.wc__title{
+	text-align: center;
+	font-size: 24px;
+	font-weight: 600;
+	color: #454545;	
+	line-height: 1;
+	margin-bottom: 30px;
+}
+
+.wc__subtitle{
+	text-align: center;
+	font-size: 16px;
+	color: #7f7f7f;
+	font-weight: 500;
+	padding: 0px 20px;
+}
+
+.work__container{
+	max-width: 1230px;
+	margin: 0 auto;
+}
+
+.work__content{
+	padding: 90px 30px;
+	
+}
+
+.work__column{
+	padding: 0 10px;
+}
+
+@media (max-width: 920px) {
+	.work__columns{
+		flex-direction: column;
+	}
+	.work__container{
+		max-width: 400px;
+	}
+	.work__title{
+		font-size: 35px;
+		margin: 0px 0px 80px 0px;
+	}
+	.work__column{
+		margin: 0px 0px 40px 0px;
+	}
+	.work__column:last-child{
+		margin: 0;
+	}
+}
+
+
+
+/* Like */
+.like{
+	background-color: white;
+}
+
+.like__title{
+	color: #454545;
+	text-align: center;
+	font-size: 40px;
+	font-weight: 600;
+	margin-bottom: 100px;
+	line-height: 1.1;
+}
+
+.like__columns{
+	display: flex;
+	justify-content: space-between;
+	margin: 0 -10px;
+}
+
+.lc__logo{
+	width: 100px;
+	height: 100px;
+	
+	margin: 0px 0px 30px 0px;
+	pointer-events: none;
+}
+
+
+.lc__subtitle{
+	text-align: center;
+	font-size: 16px;
+	color: #7f7f7f;
+	font-weight: 500;
+	padding: 0px 20px;
+}
+
+.like__container{
+	max-width: 1230px;
+	margin: 0 auto;
+}
+
+.like__content{
+	padding: 90px 30px;
+}
+.like__column{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0px 10px;
+}
+
+@media (max-width: 920px) {
+	.like__columns{
+		flex-direction: column;
+	}
+	.like__column{
+		margin: 0px 0px 40px 0px;
+	}
+	.like__container{
+		max-width: 500px;
+	}
+	.like__title{
+		font-size: 35px;
+		margin: 0px 0px 80px 0px;
+	}
+	.like__column:last-child{
+		margin: 0;
+	}
+}

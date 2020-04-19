@@ -1,26 +1,113 @@
-<div class='container mt-5 pt-5'>
+	<div class="intro" id="start">
+		<div class="intro__container">
+			<div class="intro__content">
+				<h1 class="intro__title">Во что угодно. С кем угодно.</h1>
+				<h2 class="intro__subtitle">С друзьями или единомышленниками</h2>
+				<a class="intro__button" routerLink="/search-activity">Найти занятие</a>
+			</div>
+		</div>
+	</div>
+	
 
-    Hello! work in progress
-  <!-- <div class="row pt-5">
-    <div class="card-deck">
-        <div *ngFor="let product of products" class="card mb-4 shadow-sm" style="min-width: 18rem;">
-          <img class="card-img-top" src="../../assets/stub.png" alt="Card image cap" width="100">
-          <div class="card-body">
-            <h4 class="my-0 font-weight-normal">{{product.name}}</h4>
-            <h5 class="card-title pricing-card-title">${{product.cost}}</h5>
-            <p class="card-text">
-              {{product.description}}
-            </p>
-          </div>
-          <div class="card-footer">
-            <button 
-            *ngIf="logged" 
-            type="button" 
-            (click)="addToBasket(product)" 
-            class="btn btn-lg btn-block btn-outline-primary">Купить</button>
-            <button *ngIf="!logged" type="button" class="btn btn-lg btn-block btn-outline-primary">Войдите чтобы купить</button>
-          </div>
-        </div>
-    </div>
-  </div> -->
-</div>
+	<div class="suggest">
+		<div class="sug__container">
+			<div class="sug__content">
+
+				<div class="photo sug__column">
+					<img class="photo__left" src="../../assets/photo.jpg" alt="">
+				</div>
+
+				<div class="text__but sug__column">
+					<div class="text">
+						<h2 class="sug__title">Чем вы планируете заняться?</h2>
+						<p class="sug__subtitle">Соберите себе команду единомышленников за несколько минут!</p>
+					</div>
+					<div class="button">
+						<a routerLink="/offer-activity" class="sug__btn">Предложить</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
+
+	<div class="example">
+		<div class="example__container">
+			<div class="example__content">
+				<div class="example__title">
+					Чем вы хотите заняться?
+				</div>
+
+				<div class="example__row">
+					<div class="example__column example__column1">
+						<a href="#" class="example__button">Игра в футбол</a>
+					</div>
+
+					<div class="example__column example__column2">
+						<a href="#" class="example__button">Игра в футбол</a>
+					</div>
+
+					<div class="example__column example__column3">
+						<a href="#" class="example__button">Игра в футбол</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="work">
+		<div class="work__container">
+			<div class="work__content">
+
+				<h2 class="work__title">Как это работает?</h2>
+
+				<div class="work__columns">
+					<div class="work__column">
+						<p class="wc__title">Просто</p>
+						<p class="wc__subtitle">All our professionals have more than 5 years of legal experiences.</p>
+					</div>
+
+
+					<div class="work__column">
+						<p class="wc__title">Быстро</p>
+						<p class="wc__subtitle">All our professionals have more than 5 years of legal experiences.</p>
+					</div>
+
+
+					<div class="work__column">
+						<p class="wc__title">Без хлопот</p>
+						<p class="wc__subtitle">All our professionals have more than 5 years of legal experiences.</p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="like">
+		<div class="like__container">
+			<div class="like__content">
+				<h2 class="like__title">3 причины полюбить Activity</h2>
+
+				<div class="like__columns">
+					<div class="like__column">
+						<img src="../../assets/1111.svg" alt="" class="lc__logo">
+						<p class="lc__subtitle">All our professionals have more than 5 years of legal experiences.</p>
+					</div>
+
+
+					<div class="like__column">
+						<img src="../../assets/1111.svg" alt="" class="lc__logo">
+						<p class="lc__subtitle">All our professionals have more than 5 years of legal experiences.</p>
+					</div>
+
+
+					<div class="like__column">
+						<img src="../../assets/1111.svg" alt="" class="lc__logo">
+						<p class="lc__subtitle">All our professionals have more than 5 years of legal experiences.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
