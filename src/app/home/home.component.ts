@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpServiceService } from '../infrastructure/http-service.service';
 import { Response } from '../infrastructure/classes/Repsonse';
-import { Product } from '../infrastructure/classes/Product';
+import { Activity } from '../infrastructure/classes/ActivityRaw';
 import { Router } from '@angular/router';
 import { UserService } from '../infrastructure/user.service';
 
@@ -12,7 +12,7 @@ import { UserService } from '../infrastructure/user.service';
 })
 export class HomeComponent implements OnInit {
 
-  products: Iterable<Product> = [];
+  products: Iterable<Activity> = [];
   logged: Boolean = false;
 
   constructor(

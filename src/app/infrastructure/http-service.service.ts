@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Response } from './classes/Repsonse';
-import { Product } from './classes/Product';
+import { Activity, ActivityRaw } from './classes/ActivityRaw';
 import { User } from './classes/User';
 import { Observable } from 'rxjs';
 import { headersToString } from 'selenium-webdriver/http';
@@ -12,6 +12,7 @@ import { ProductRequest } from './classes/ProductRequest';
 import { OrderRequest } from './classes/OrderRequest';
 import { LoginResponse } from './classes/LoginResponse';
 import { ErrorResponse } from './classes/ErrorRepsonse';
+import { ComponentSource } from 'ag-grid-community/dist/lib/components/framework/userComponentFactory';
 @Injectable({
   providedIn: 'root'
 })
@@ -78,20 +79,21 @@ export class HttpServiceService {
   // }
 
   
-  // getAllProducts(): Observable<Iterable<Product>> {
-  //   return this.http.get(this.backUrl + "/api/allProducts").pipe(
-  //     map(answer => {
-  //       const res = answer.valueOf() as Response;
-  //       if (res && res.status === 'OK') {
-  //         const products = res.payload.valueOf() as Iterable<Product>;
-  //         return products;
-
-  //       } else {
-  //         throw Error(res.message);
-  //       }
-  //     })
-  //   );
-  // }
+  getAllActivity(): Observable<Iterable<Activity>> {
+    return this.http.get(this.backUrl + "/activity/getAll").pipe(
+      map(answer => {
+        const res = answer.valueOf() as Response;
+        const activitiesR = this.handleReponse<Array<ActivityRaw>>(res);
+        let activities = Array<Activity>();
+        activitiesR.map((act, b, c) => {
+          let d = new Date(0);
+          d.setUTCSeconds(act.date.seconds);  
+          activities.push(new Activity(act.id, act.description, act.category, act.subCategory, act.owner, act.countPerson, act.status, d));
+        });
+        return activities;
+      })
+    );
+  }
 
   login(login: string, password: string): Observable<String> {
     const myHeaders = new HttpHeaders()

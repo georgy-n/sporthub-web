@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpServiceService } from '../infrastructure/http-service.service';
+import { ActivityRaw, Activity } from '../infrastructure/classes/ActivityRaw';
 
 @Component({
   selector: 'app-search-activity',
@@ -6,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search-activity.component.css']
 })
 export class SearchActivityComponent implements OnInit {
-
-  constructor() { }
+  activities: Iterable<Activity> = [];
+  constructor(private httpService: HttpServiceService) { }
 
   ngOnInit() {
+    this.httpService.getAllActivity().subscribe((resp: Iterable<Activity>) => {
+      this.activities = resp;
+    } );
   }
 
 }

@@ -1,3 +1,83 @@
-<div class='container mt-5 pt-5'>
-  offer-activity works!
+<div class="jumbotron  bg-white">
+
+  <div class="container pt-5">
+    <div class="row justify-content-md-center pt-5">
+      <div class="col-sm-8 order-sm-1 pt-5">
+        <h4 class="mb-3">Пледложить активность</h4>
+        <form [formGroup]="activityOfferForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-sm-6 mb-3">
+              <label for="firstName">Категория</label>
+              <input type="text" formControlName="categoty" class="form-control" id="categoty" placeholder="Спорт">
+              <div
+                *ngIf="activityOfferForm.controls['categoty'].invalid && (activityOfferForm.controls['categoty'].dirty || activityOfferForm.controls['categoty'].touched)"
+                class="invalid-feedback d-block">
+                <div *ngIf="activityOfferForm.controls['categoty'].errors.required">
+                  Имя обязательное поле.
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 mb-3">
+              <label for="subCategory">SUBCategoty</label>
+              <input type="text" formControlName="subCategory" class="form-control" id="subCategory" placeholder="footbol">
+              <div
+                *ngIf="activityOfferForm.controls['subCategory'].invalid && (activityOfferForm.controls['subCategory'].dirty || activityOfferForm.controls['subCategory'].touched)"
+                class="invalid-feedback d-block">
+                <div *ngIf="activityOfferForm.controls['subCategory'].errors.required">
+                  Фамилия обязательное поле.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="desctiption">Description</label>
+            <div class="input-group">
+              <input type="text" formControlName="desctiption" class="form-control" id="desctiption" placeholder="example">
+              <div
+                *ngIf="activityOfferForm.controls['desctiption'].invalid && (activityOfferForm.controls['desctiption'].dirty || activityOfferForm.controls['desctiption'].touched)"
+                class="invalid-feedback d-block">
+                <div *ngIf="activityOfferForm.controls['desctiption'].errors.required">
+                  Логин обязательное поле.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="countPerson">count Person</label>
+            <div class="input-group">
+              <input type="text" formControlName="countPerson" class="form-control" id="countPerson" placeholder="example">
+              <div
+                *ngIf="activityOfferForm.controls['countPerson'].invalid && (activityOfferForm.controls['countPerson'].dirty || activityOfferForm.controls['countPerson'].touched)"
+                class="invalid-feedback d-block">
+                <div *ngIf="activityOfferForm.controls['countPerson'].errors.required">
+                  Пароль обязательное поле.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="email">Date</label>
+            <input formControlName="date" class="form-control" id="date" placeholder="asdas">
+            <div
+              *ngIf="activityOfferForm.controls['date'].invalid && (activityOfferForm.controls['date'].dirty || activityOfferForm.controls['date'].touched)"
+              class="invalid-feedback d-block">
+              <div *ngIf="activityOfferForm.controls['date'].errors.required">date обязательное поле.</div>
+            </div>
+          </div>
+          <div *ngIf="errors" class="alert alert-danger" role="alert">
+            {{errors}}
+          </div>
+
+          <button (click)="onSubmit()" class="btn btn-primary btn-lg btn-block"
+            [disabled]="loading">Предложить</button>
+          <img *ngIf="loading"
+            src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
