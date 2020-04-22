@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log("login")
     this.error = null;
     this.submitted = true;
 

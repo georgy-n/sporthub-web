@@ -13,6 +13,7 @@ import { OrderRequest } from './classes/OrderRequest';
 import { LoginResponse } from './classes/LoginResponse';
 import { ErrorResponse } from './classes/ErrorRepsonse';
 import { ComponentSource } from 'ag-grid-community/dist/lib/components/framework/userComponentFactory';
+import { Category } from './classes/Category';
 @Injectable({
   providedIn: 'root'
 })
@@ -129,6 +130,17 @@ export class HttpServiceService {
     )
   }
 
+  getCategories(): Observable<Array<Category>> {
+    return this.http.get(
+      this.backUrl + "/activity/getCategories")
+      .pipe(
+        map(answer => {
+          const res = answer.valueOf() as Response;
+          const response = this.handleReponse<Array<Category>>(res);
+          return response;
+        })
+    )
+  }
   
   registration(registrationRequest: RegistrationRequest): Observable<User> {
     const myHeaders = new HttpHeaders().set('Content-Type', 'application/json');

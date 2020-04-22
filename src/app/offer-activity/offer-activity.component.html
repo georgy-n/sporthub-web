@@ -1,77 +1,96 @@
-<div class="jumbotron  bg-white">
-
-  <div class="container pt-5">
+  <div class="container mb-5 pb-5">
     <div class="row justify-content-md-center pt-5">
       <div class="col-sm-8 order-sm-1 pt-5">
         <h4 class="mb-3">Пледложить активность</h4>
+        
         <form [formGroup]="activityOfferForm" (ngSubmit)="onSubmit()">
           <div class="row">
+            
             <div class="col-sm-6 mb-3">
-              <label for="firstName">Категория</label>
-              <input type="text" formControlName="categoty" class="form-control" id="categoty" placeholder="Спорт">
+              <label for="category">Категория</label>
+              <select formControlName="category" 
+                      id="category" class="form-control"
+                      (change)="changeCity($event)">
+                  <option value="" disabled selected>Выберите категорию</option>
+                  <option *ngFor="let cat of categories">{{cat.name}}</option> 
+              </select>
               <div
-                *ngIf="activityOfferForm.controls['categoty'].invalid && (activityOfferForm.controls['categoty'].dirty || activityOfferForm.controls['categoty'].touched)"
+                *ngIf="activityOfferForm.controls['category'].invalid && (activityOfferForm.controls['category'].dirty || activityOfferForm.controls['category'].touched)"
                 class="invalid-feedback d-block">
-                <div *ngIf="activityOfferForm.controls['categoty'].errors.required">
-                  Имя обязательное поле.
+                <div *ngIf="activityOfferForm.controls['category'].errors.required">
+                  Категория обязательное поле.
                 </div>
               </div>
+              {{cate}}
             </div>
+
             <div class="col-sm-6 mb-3">
-              <label for="subCategory">SUBCategoty</label>
-              <input type="text" formControlName="subCategory" class="form-control" id="subCategory" placeholder="footbol">
+              <label for="subCategory">Подкатегория</label>
+              <select formControlName="subCategory" id="subCategory" class="form-control">
+                <option value="" disabled selected>Выберите сначала категорию</option>
+                <option *ngFor="let subCat of getSubCategories(cate)">{{subCat}}</option>
+              </select>
               <div
-                *ngIf="activityOfferForm.controls['subCategory'].invalid && (activityOfferForm.controls['subCategory'].dirty || activityOfferForm.controls['subCategory'].touched)"
+                *ngIf="activityOfferForm.controls['subCategory'].invalid && 
+                      (activityOfferForm.controls['subCategory'].dirty || 
+                      activityOfferForm.controls['subCategory'].touched)"
                 class="invalid-feedback d-block">
                 <div *ngIf="activityOfferForm.controls['subCategory'].errors.required">
-                  Фамилия обязательное поле.
+                  Подкатегория обязательное поле.
                 </div>
               </div>
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="desctiption">Description</label>
+            <label for="countPerson">Количетсво мест</label>
             <div class="input-group">
-              <input type="text" formControlName="desctiption" class="form-control" id="desctiption" placeholder="example">
+              <input type="number" formControlName="countPerson" class="form-control" id="countPerson">
               <div
-                *ngIf="activityOfferForm.controls['desctiption'].invalid && (activityOfferForm.controls['desctiption'].dirty || activityOfferForm.controls['desctiption'].touched)"
-                class="invalid-feedback d-block">
-                <div *ngIf="activityOfferForm.controls['desctiption'].errors.required">
-                  Логин обязательное поле.
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="countPerson">count Person</label>
-            <div class="input-group">
-              <input type="text" formControlName="countPerson" class="form-control" id="countPerson" placeholder="example">
-              <div
-                *ngIf="activityOfferForm.controls['countPerson'].invalid && (activityOfferForm.controls['countPerson'].dirty || activityOfferForm.controls['countPerson'].touched)"
+                *ngIf="activityOfferForm.controls['countPerson'].invalid && 
+                      (activityOfferForm.controls['countPerson'].dirty || 
+                       activityOfferForm.controls['countPerson'].touched)"
                 class="invalid-feedback d-block">
                 <div *ngIf="activityOfferForm.controls['countPerson'].errors.required">
-                  Пароль обязательное поле.
+                  Заполните количетсво мест.
                 </div>
               </div>
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="email">Date</label>
-            <input formControlName="date" class="form-control" id="date" placeholder="asdas">
+            <label for="date">Когда и во сколько</label>
+            <input type="datetime-local" formControlName="date" class="form-control" id="date">
             <div
-              *ngIf="activityOfferForm.controls['date'].invalid && (activityOfferForm.controls['date'].dirty || activityOfferForm.controls['date'].touched)"
+              *ngIf="activityOfferForm.controls['date'].invalid && 
+                    (activityOfferForm.controls['date'].dirty || 
+                    activityOfferForm.controls['date'].touched)"
               class="invalid-feedback d-block">
-              <div *ngIf="activityOfferForm.controls['date'].errors.required">date обязательное поле.</div>
+              <div *ngIf="activityOfferForm.controls['date'].errors.required">дата обязательное поле.</div>
             </div>
           </div>
-          <div *ngIf="errors" class="alert alert-danger" role="alert">
-            {{errors}}
+          
+          <div class="mb-3">
+            <label for="description">Описание</label>
+            <div class="input-group">
+              <textarea type="text" 
+                     formControlName="description" 
+                     class="form-control" 
+                     id="description" 
+                     placeholder="Приглашаю поиграть в футбол"></textarea>
+              <div
+                *ngIf="activityOfferForm.controls['description'].invalid && 
+                      (activityOfferForm.controls['description'].dirty || 
+                       activityOfferForm.controls['description'].touched)"
+                class="invalid-feedback d-block">
+                <div *ngIf="activityOfferForm.controls['description'].errors.required">
+                  Нужно заполнить описание.
+                </div>
+              </div>
+            </div>
           </div>
 
-          <button (click)="onSubmit()" class="btn btn-primary btn-lg btn-block"
+          <button (click)="onSubmit()" class="btn btn-primary btn-lg btn-block mb-5"
             [disabled]="loading">Предложить</button>
           <img *ngIf="loading"
             src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
@@ -80,4 +99,3 @@
       </div>
     </div>
   </div>
-</div>
