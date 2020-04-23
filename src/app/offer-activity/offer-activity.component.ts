@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpServiceService } from '../infrastructure/http-service.service';
 import { Category } from '../infrastructure/classes/Category';
+import { ActivityService } from '../infrastructure/activity.service';
+import { OfferActivityRequest } from '../infrastructure/classes/OfferActivityRequest';
+import { UserService } from '../infrastructure/user.service';
+import { Activity } from '../infrastructure/classes/ActivityRaw';
 
 @Component({
   selector: 'app-offer-activity',
@@ -11,11 +15,14 @@ import { Category } from '../infrastructure/classes/Category';
 export class OfferActivityComponent implements OnInit {
   activityOfferForm: FormGroup;
   categories: Array<Category> = []
-  cate = "";
+  selectedCategory = "";
   loading: Boolean;
   errors: String;
-  constructor( private formBuilder: FormBuilder, private httpClient: HttpServiceService) {
-    httpClient.getCategories().subscribe(cat => this.categories = cat)
+  success: Boolean;
+  createdActivity: Activity;
+  
+  constructor( private formBuilder: FormBuilder, private activityService: ActivityService, private userService: UserService) {
+    activityService.getCategories().subscribe(cat => this.categories = cat)
    }
 
   ngOnInit() {
@@ -23,39 +30,40 @@ export class OfferActivityComponent implements OnInit {
       category: ['', Validators.required],
       subCategory: ['', Validators.required],
       description: ['', [Validators.required, Validators.maxLength(500)]],
-      countPerson: [0, [Validators.required, Validators.min(0), Validators.min(50)]],
+      countPerson: [0, [Validators.required, Validators.min(0), Validators.max(50)]],
       date: ['', [Validators.required]]
 
     });
   }
 
   onSubmit() {
-    
-      let controls = this.activityOfferForm.controls;
-      console.log(controls.subCategory.value);
-      console.log(controls.category.value);
+    console.log(this.activityOfferForm.controls['countPerson'].invalid)
+    if (this.activityOfferForm.invalid) {
+      this.markFormGroupTouched(this.activityOfferForm)
+      return
+    } else {
+      this.loading = true
+      let controls = this.activityOfferForm.controls
+      let regRequest = new OfferActivityRequest(
+        controls.category.value,
+        controls.subCategory.value,
+        controls.description.value,
+        controls.countPerson.value,
+        controls.date.value)
+      this.success = false;
 
-    // if (this.rForm.invalid) {
-    //   this.markFormGroupTouched(this.rForm)
-    //   return
-    // } else {
-    //   this.loading = true
-    //   let controls = this.rForm.controls
-    //   let regRequest = new RegistrationRequest(
-    //     controls.firstName.value,
-    //     controls.firstName.value,
-    //     controls.login.value,
-    //     controls.password.value)
-    //   this.authService.registration(regRequest).subscribe(
-    //     user => {
-    //       this.router.navigate(['/login']);
-    //     },
-    //     err => {
-    //       this.errors = err.message;
-    //       this.loading = false;
-    //     }
-    //   )
-    // }
+      this.activityService.offerActivity(regRequest, this.userService.token).subscribe(
+        act => {
+          this.loading = false;
+          this.success = true;
+          this.createdActivity = act;
+        },
+        err => {
+          this.errors = err.message;
+          this.loading = false;
+        }
+      )
+    }
   }
 
   private markFormGroupTouched(form: FormGroup) {
@@ -80,6 +88,6 @@ export class OfferActivityComponent implements OnInit {
   changeCity(e) {
     console.log(e.target.value)
     console.log(this.categories.find(elem => elem.name === e.target.value).subCategories)
-    this.cate = e.target.value;
+    this.selectedCategory = e.target.value;
   }
 }

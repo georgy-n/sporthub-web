@@ -28,7 +28,7 @@
               <label for="subCategory">Подкатегория</label>
               <select formControlName="subCategory" id="subCategory" class="form-control">
                 <option value="" disabled selected>Выберите сначала категорию</option>
-                <option *ngFor="let subCat of getSubCategories(cate)">{{subCat}}</option>
+                <option *ngFor="let subCat of getSubCategories(selectedCategory)">{{subCat}}</option>
               </select>
               <div
                 *ngIf="activityOfferForm.controls['subCategory'].invalid && 
@@ -51,6 +51,7 @@
                       (activityOfferForm.controls['countPerson'].dirty || 
                        activityOfferForm.controls['countPerson'].touched)"
                 class="invalid-feedback d-block">
+                Количетво может быть больше нуля и меньше 50
                 <div *ngIf="activityOfferForm.controls['countPerson'].errors.required">
                   Заполните количетсво мест.
                 </div>
@@ -90,11 +91,12 @@
             </div>
           </div>
 
-          <button (click)="onSubmit()" class="btn btn-primary btn-lg btn-block mb-5"
+          <button (click)="onSubmit()" class="btn btn-primary btn-lg btn-block"
             [disabled]="loading">Предложить</button>
           <img *ngIf="loading"
             src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
 
+            <div *ngIf="success">успешно создалась активность id={{createdActivity.id}}</div>
         </form>
       </div>
     </div>

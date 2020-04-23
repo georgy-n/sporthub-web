@@ -17,7 +17,7 @@ const routes: Routes = [
   {path: "personalInfo", component: PersonalInfoComponent, canActivate: [PersonalInfoGuard]},
   {path: "registration", component: RegistrationComponent, canActivate: [RegistrationGuard]},
   {path: "search-activity", component: SearchActivityComponent},
-  {path: "offer-activity", component: OfferActivityComponent},
+  {path: "offer-activity", component: OfferActivityComponent, canActivate: [PersonalInfoGuard]},
 ];
 
 @NgModule({

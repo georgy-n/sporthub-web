@@ -1,11 +1,11 @@
 export class ActivityRaw {
-    id: Number;
-    description: String;
-    category: String;
-    subCategory: String;
-    owner: String;
-    countPerson: String;
-    status: String;
+    id: number;
+    description: string;
+    category: string;
+    subCategory: string;
+    owner: string;
+    countPerson: string;
+    status: string;
     date: DateRaw;
 }
 
@@ -14,22 +14,22 @@ export class DateRaw {
 }
 
 export class Activity {
-    id: Number;
-    description: String;
-    category: String;
-    subCategory: String;
-    owner: String;
-    countPerson: String;
-    status: String;
+    id: number;
+    description: string;
+    category: string;
+    subCategory: string;
+    owner: string;
+    countPerson: string;
+    status: string;
     date: Date;
 
-    constructor(id: Number,
-        description: String,
-        category: String,
-        subCategory: String,
-        owner: String,
-        countPerson: String,
-        status: String,
+    constructor(id: number,
+        description: string,
+        category: string,
+        subCategory: string,
+        owner: string,
+        countPerson: string,
+        status: string,
         date: Date) {
             this.id= id;
             this.description= description;

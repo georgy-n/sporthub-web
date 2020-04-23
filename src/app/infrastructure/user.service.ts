@@ -14,12 +14,12 @@ export class UserService {
   public isUserLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public isAdmin: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public user: User;
-  public token: String;
+  public token: string;
 
 
   constructor(private http: HttpServiceService) { }
 
-  public login(login: string, password: string): Observable<String> {
+  public login(login: string, password: string): Observable<string> {
     return this.http.login(login, password).pipe(flatMap(token => {
       this.token = token;
       this.isUserLoggedIn.next(true)

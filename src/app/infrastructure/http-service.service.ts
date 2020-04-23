@@ -5,15 +5,13 @@ import { Response } from './classes/Repsonse';
 import { Activity, ActivityRaw } from './classes/ActivityRaw';
 import { User } from './classes/User';
 import { Observable } from 'rxjs';
-import { headersToString } from 'selenium-webdriver/http';
 import { PersonalInfo } from './classes/PersonalInfo';
 import { RegistrationRequest } from './classes/RegistrationRequest';
-import { ProductRequest } from './classes/ProductRequest';
-import { OrderRequest } from './classes/OrderRequest';
 import { LoginResponse } from './classes/LoginResponse';
 import { ErrorResponse } from './classes/ErrorRepsonse';
 import { ComponentSource } from 'ag-grid-community/dist/lib/components/framework/userComponentFactory';
 import { Category } from './classes/Category';
+import { OfferActivityRequest } from './classes/OfferActivityRequest';
 @Injectable({
   providedIn: 'root'
 })
@@ -24,23 +22,25 @@ export class HttpServiceService {
   private backUrl = "https://sport-hub-ekb.herokuapp.com"
   // private backUrl = "http://localhost:5000"
 
-  // addProduct(productRequest: ProductRequest, token: String) {
-  //   const myHeaders = new HttpHeaders()
-  //   .set('Content-Type', 'application/json')
-  //   .set("x-auth-token", token.toString());
-  //   let body = JSON.stringify(productRequest);
-  //   return this.http.post(this.backUrl + '/api/saveProduct',
-  //       body,
-  //       {
-  //         responseType: 'json',
-  //         headers: myHeaders
-  //       }).pipe(map(answer => {
-  //     const res = answer.valueOf() as Response;
-  //     if (res.status == "OK")
-  //       return;
-  //     else {throw new Error("add failed")} 
-  //   }));
-  // }
+  offerActivity(req: OfferActivityRequest, token: String) {
+    const myHeaders = new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    .set("Authorization", "Bearer " + token.toString());
+    let body = JSON.stringify(req);
+    return this.http.post(this.backUrl + '/activity/addActivityOffer',
+        body,
+        {
+          responseType: 'json',
+          headers: myHeaders
+        }).pipe(map(answer => {
+      const res = answer.valueOf() as Response;
+      const act = this.handleReponse<ActivityRaw>(res);
+      let d = new Date(0);
+      d.setUTCSeconds(act.date.seconds);  
+      return new Activity(act.id, act.description, act.category, act.subCategory, 
+                          act.owner, act.countPerson, act.status, d);
+    }));
+  }
   // deleteProducts(productsId: Array<Number>, token: String) {
     
   //   const myHeaders = new HttpHeaders()
@@ -96,7 +96,7 @@ export class HttpServiceService {
     );
   }
 
-  login(login: string, password: string): Observable<String> {
+  login(login: string, password: string): Observable<string> {
     const myHeaders = new HttpHeaders()
     .set('Content-Type', 'application/json');
     let body = JSON.stringify({
