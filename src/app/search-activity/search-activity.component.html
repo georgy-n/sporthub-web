@@ -1,14 +1,35 @@
 <div class="jumbotron bg-white">
   <div class='container pt-5'>
     <div *ngFor="let activity of activities">
-      {{activity.id}}
-      {{activity.description}}
-      {{activity.category}}
-      {{activity.subCategory}}
-      {{activity.owner}}
-      {{activity.countPerson}}
-      {{activity.status}}
-      {{activity.date}}
+      <div class="card mb-3">
+        <div class="row ">
+          <div class="col-md-4">
+            <img src="../../assets/stub-user.png" class="card-img-center img-fluid" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{activity.category}}</h5>
+              <h6 class="card-title">{{activity.subCategory}}</h6>
+
+              <p class="card-text">
+                Описание: {{activity.description}}
+                <br>
+                Количество мест: {{activity.countPerson}}
+                <br>
+                Статус: {{activity.status}}
+                <br>
+                Дата: {{activity.date.toISOString().substring(0, 16)}}
+              </p>
+            </div>
+            <div class="card-footer">
+              <button  
+              type="button" 
+              (click)="fullInfo(activity)" 
+              class="btn btn-lg btn-block btn-outline-primary">Подробнее</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
     search-activity works!

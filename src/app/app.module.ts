@@ -14,6 +14,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { SearchActivityComponent } from './search-activity/search-activity.component';
 import { OfferActivityComponent } from './offer-activity/offer-activity.component';
+import { ActivityComponent } from './activity/activity.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { OfferActivityComponent } from './offer-activity/offer-activity.componen
     RegistrationComponent,
     SearchActivityComponent,
     OfferActivityComponent,
+    ActivityComponent,
   ],
   imports: [
     BrowserModule,

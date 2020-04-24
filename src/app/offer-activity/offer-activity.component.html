@@ -15,7 +15,9 @@
                   <option *ngFor="let cat of categories">{{cat.name}}</option> 
               </select>
               <div
-                *ngIf="activityOfferForm.controls['category'].invalid && (activityOfferForm.controls['category'].dirty || activityOfferForm.controls['category'].touched)"
+                *ngIf="activityOfferForm.controls['category'].invalid &&
+                      (activityOfferForm.controls['category'].dirty || 
+                      activityOfferForm.controls['category'].touched)"
                 class="invalid-feedback d-block">
                 <div *ngIf="activityOfferForm.controls['category'].errors.required">
                   Категория обязательное поле.
