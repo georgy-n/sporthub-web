@@ -15,6 +15,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { SearchActivityComponent } from './search-activity/search-activity.component';
 import { OfferActivityComponent } from './offer-activity/offer-activity.component';
 import { ActivityComponent } from './activity/activity.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ActivityComponent } from './activity/activity.component';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    Ng2SearchPipeModule,
     AppRoutingModule,
     HttpClientModule,
     AgGridModule.withComponents(null)

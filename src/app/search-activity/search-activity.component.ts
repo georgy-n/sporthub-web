@@ -3,6 +3,7 @@ import { HttpServiceService } from '../infrastructure/http-service.service';
 import { ActivityRaw, Activity } from '../infrastructure/classes/ActivityRaw';
 import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @Component({
   selector: 'app-search-activity',
