@@ -12,6 +12,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 })
 export class SearchActivityComponent implements OnInit {
   activities: Iterable<Activity> = [];
+  searchText=""
   constructor(private httpService: HttpServiceService, private router: Router) { }
 
   ngOnInit() {
