@@ -1,7 +1,43 @@
 <div class="jumbotron bg-white">
-  <div class="container pt-5">
-  <p>
-    activity works!
-  </p>
+  <div>
+    <h1>Информация про активность</h1>
+  </div>
+  <div *ngIf="!loaded" class="container pt-5">
+  <div>
+    {{activityInfo.id}}
+  </div>
+  <div>
+    {{activityInfo.description}}
+  </div>
+  
+  <div>
+    {{activityInfo.category}}
+  </div>
+  <div>
+    {{activityInfo.subCategory}}
+  </div>
+  <div>
+    {{activityInfo.owner}}
+  </div>
+  <div>
+    {{activityInfo.countPerson}}
+  </div>
+  <div>
+    {{activityInfo.status}}
+  </div>
+  <div>
+    {{activityInfo.date}}
+  </div>
+  <div>
+    {{activityInfo.countFreeSpace}}
+  </div>
+  <div *ngFor="let part of participants">
+    Part
+    {{part.firstName}}
+  </div>
+  <button  
+              type="button" 
+              (click)="booking()" 
+              class="btn btn-lg btn-block btn-outline-primary">Забронировать</button>
 </div>
 </div>

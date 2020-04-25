@@ -5,7 +5,7 @@ import { Category } from './classes/Category';
 import { flatMap } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { OfferActivityRequest } from './classes/OfferActivityRequest';
-import { Activity } from './classes/ActivityRaw';
+import { Activity, ActivityInfo } from './classes/ActivityRaw';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +21,13 @@ export class ActivityService {
 
   offerActivity(req: OfferActivityRequest, token: string): Observable<Activity> {
     return this.http.offerActivity(req, token);
+  }
+
+  subscribeActivity(activityId: number, token: string): Observable<string> {
+    return this.http.subscribeOnActivity(activityId, token);
+  }
+
+  activityInfo(activityId: string): Observable<ActivityInfo> {
+    return this.http.getActivityInfo(activityId);
   }
 }

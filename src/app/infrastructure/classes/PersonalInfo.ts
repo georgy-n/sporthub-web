@@ -3,3 +3,9 @@ export class PersonalInfo {
     secondName: String;
     login: String;
 }
+
+export class ShortPersonalInfo {
+    firstName: string;
+    secondName: string;
+    id: string;
+}

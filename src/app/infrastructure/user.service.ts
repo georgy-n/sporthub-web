@@ -4,7 +4,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { User } from './classes/User';
 import { map, flatMap } from 'rxjs/operators';
 import { RegistrationRequest } from './classes/RegistrationRequest';
-import { PersonalInfo } from './classes/PersonalInfo';
+import { PersonalInfo, ShortPersonalInfo } from './classes/PersonalInfo';
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +41,8 @@ export class UserService {
     } else {
       return;
     }
+  }
+  public getShortPersonalInfo(userId: string): Observable<ShortPersonalInfo> {
+      return this.http.getShortPersonalInfo(userId);
   }
 }

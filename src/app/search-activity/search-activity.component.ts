@@ -22,6 +22,6 @@ export class SearchActivityComponent implements OnInit {
   }
 
   fullInfo(activity: Activity) {
-    this.router.navigate(['/activity-info']);
+    this.router.navigate(['/activity-info', {activityId: activity.id}]);
   }
 }
