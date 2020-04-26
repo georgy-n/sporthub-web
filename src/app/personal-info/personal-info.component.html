@@ -22,33 +22,34 @@
       </div>
     </div>
 
-    <div class="col-md-12 pt-3 pb-3">
-      <div *ngFor="let activity of subsctibedActivity">
-        <div class="card">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card-body">
-                <h5 class="card-title">{{activity.category}}</h5>
-                <h6 class="card-title">{{activity.subCategory}}</h6>
-  
-                <p class="card-text">
-                  Описание: {{activity.description}}
-                  <br>
-                  Количество мест: {{activity.countPerson}}
-                  <br>
-                  Статус: {{activity.status}}
-                  <br>
-                  Дата: {{activity.date.toISOString().substring(0, 16)}}
-                </p>
-              </div>
-              <div class="p-3">
-                <button  
-                type="button" 
-                (click)="fullInfo(activity)" 
-                class="btn btn-lg btn-block btn-outline-primary btn-sm">Подробнее</button>
-              </div>
+    <div class="container mt-3">
+      <h3>События, на которые Вы подписаны</h3>
+    </div>
+    <div class="row pt-5">
+      <div class="card-deck ml-3">
+          <div *ngFor="let activity of subsctibedActivity" class="card ml-2 mb-5 shadow-sm" style="min-width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{activity.category}}</h5>
+              <h6 class="card-title">{{activity.subCategory}}</h6>
+
+              <p class="card-text">
+                Описание: {{activity.description}}
+                <br>
+                Количество мест: {{activity.countPerson}}
+                <br>
+                Статус: {{activity.status}}
+                <br>
+                Дата: {{activity.date.toISOString().substring(0, 16)}}
+              </p>
+            </div>
+            <div class="p-3">
+              <button  
+              type="button" 
+              (click)="fullInfo(activity)" 
+              class="btn btn-lg btn-block btn-outline-primary btn-sm">Подробнее</button>
             </div>
           </div>
-        </div>
+      </div>
     </div>
   </div>
+</div>

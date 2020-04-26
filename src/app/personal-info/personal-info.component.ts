@@ -30,4 +30,7 @@ export class PersonalInfoComponent implements OnInit {
 
   }
 
+  fullInfo(activity: Activity) {
+    this.router.navigate(['/activity-info', {activityId: activity.id}]);
+  }
 }
