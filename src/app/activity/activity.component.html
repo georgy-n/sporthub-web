@@ -1,43 +1,53 @@
 <div class="jumbotron bg-white">
-  <div>
-    <h1>Информация про активность</h1>
+
+  <div *ngIf="loaded" class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+    <span class="sr-only">Loading...</span>
   </div>
-  <div *ngIf="!loaded" class="container pt-5">
-  <div>
-    {{activityInfo.id}}
+
+  <div class="row">
+    <div *ngIf="!loaded" class="container pt-5 col-md-8">
+      
+      
+      <div class="font-weight-bold pt-3">
+        Категория: {{activityInfo.category}}
+      </div>
+      <div class="font-weight-bold pt-3">
+        Подкатегория: {{activityInfo.subCategory}}
+      </div>
+
+      <div class="font-weight-bold pt-3">
+        Дата проведения: {{activityInfo.date.toISOString().substring(0, 16)}}
+      </div>
+
+      <div class="font-weight-bold pt-3">Описание: </div>
+      <div class="container pt-1">
+        {{activityInfo.description}}
+      </div>
+      
+      <div class="font-weight-bold pt-3">Организатор: </div>
+      <div class="container p-1">
+        <img src="../../assets/stub-user.png" class="rounded-circle" style="width: 10%;" alt="Responsive image">
+        {{owner.firstName}} {{owner.secondName}}
+      </div>
+      
+      <div class="font-weight-bold pt-3">Забронировано мест: </div>
+      <div class="container p-1">
+        {{activityInfo.countPerson - activityInfo.countFreeSpace}} / {{activityInfo.countPerson}}
+      </div>
+            
+      <button *ngIf="!logged" type="button" (click)="login()" class="btn btn-lg btn-block btn-outline-primary">Войдите, чтобы забронировать</button>
+      <button *ngIf="logged && !isSubsribed" type="button" (click)="subscribe()" class="btn btn-lg btn-block btn-outline-primary">Забронировать</button>
+      <button *ngIf="isSubsribed" type="button" (click)="unSubscribe()" class="btn btn-lg btn-block btn-outline-primary">Отменить бронирование</button>
+    
+    </div>
+
+    
+    <div *ngIf="!loaded" class="container pt-5 col-md-4">
+      <div class="text-center font-weight-bold p-3">Участники</div>
+      <div class="container pb-3" *ngFor="let part of participants">
+        <img src="../../assets/stub-user.png" class="w-25 h-25 img-fluid rounded-circle" alt="Responsive image">
+        {{part.firstName}} {{part.secondName}}
+      </div>
+    </div>
   </div>
-  <div>
-    {{activityInfo.description}}
-  </div>
-  
-  <div>
-    {{activityInfo.category}}
-  </div>
-  <div>
-    {{activityInfo.subCategory}}
-  </div>
-  <div>
-    {{activityInfo.owner}}
-  </div>
-  <div>
-    {{activityInfo.countPerson}}
-  </div>
-  <div>
-    {{activityInfo.status}}
-  </div>
-  <div>
-    {{activityInfo.date}}
-  </div>
-  <div>
-    {{activityInfo.countFreeSpace}}
-  </div>
-  <div *ngFor="let part of participants">
-    Part
-    {{part.firstName}}
-  </div>
-  <button  
-              type="button" 
-              (click)="booking()" 
-              class="btn btn-lg btn-block btn-outline-primary">Забронировать</button>
-</div>
 </div>

@@ -1,4 +1,5 @@
 export class PersonalInfo {
+    id: string;
     firstName: String;
     secondName: String;
     login: String;

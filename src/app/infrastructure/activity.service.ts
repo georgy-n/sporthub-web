@@ -27,6 +27,11 @@ export class ActivityService {
     return this.http.subscribeOnActivity(activityId, token);
   }
 
+  
+  unSubscribeActivity(activityId: number, token: string): Observable<string> {
+    return this.http.unSubscribeOnActivity(activityId, token);
+  }
+
   activityInfo(activityId: string): Observable<ActivityInfo> {
     return this.http.getActivityInfo(activityId);
   }

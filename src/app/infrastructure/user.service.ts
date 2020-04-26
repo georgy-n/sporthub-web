@@ -25,7 +25,11 @@ export class UserService {
       this.isUserLoggedIn.next(true)
       return this.http.getPersonalInfo(token).pipe(map(personalInfo => {
         console.log(personalInfo)
-        this.user = new User(personalInfo.firstName, personalInfo.secondName, personalInfo.login)
+        console.log(personalInfo.id)
+
+        this.user = new User(personalInfo.firstName, personalInfo.secondName, personalInfo.login, personalInfo.id)
+        console.log(this.user)
+        
         return token;
       }))
     }));

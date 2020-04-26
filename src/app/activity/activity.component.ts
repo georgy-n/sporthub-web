@@ -14,8 +14,12 @@ import { ShortPersonalInfo } from '../infrastructure/classes/PersonalInfo';
 export class ActivityComponent implements OnInit {
 
   loaded = true;
+  isOwner = false;
   activityInfo: ActivityInfo;
   participants: Array<ShortPersonalInfo> = [];
+  owner: ShortPersonalInfo;
+  logged = false;
+  isSubsribed = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -33,17 +37,34 @@ export class ActivityComponent implements OnInit {
       resp.participants.forEach(
           p => this.userService.getShortPersonalInfo(p).subscribe(r => this.participants.push(r))
       )
-      this.loaded=false;
+      
+      this.userService.getShortPersonalInfo(resp.owner).subscribe(r => {
+        this.owner = r;
+        this.isOwner = this.userService.user !== undefined && r.id === this.userService.user.id;
+        this.isSubsribed = this.userService.user !== undefined && 
+                           this.participants.some(r => r.id === this.userService.user.id)
+        this.loaded=false;
+      })
+      this.userService.isUserLoggedIn.subscribe(l => this.logged = l)    
     } );
     
-    console.log(this.route.snapshot.paramMap.get("activityId"))
   }
 
-  booking() {
+  subscribe() {
     return this.activityService.subscribeActivity(this.activityInfo.id, this.userService.token)
     .subscribe(r =>
       this.ngOnInit()
       )
+  }
 
+  unSubscribe() {
+    return this.activityService.unSubscribeActivity(this.activityInfo.id, this.userService.token)
+    .subscribe(r =>
+      this.ngOnInit()
+      )
+  }
+
+  login() {
+    this.router.navigate(['/login']);
   }
 }

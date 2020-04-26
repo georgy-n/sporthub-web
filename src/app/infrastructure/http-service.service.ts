@@ -150,6 +150,24 @@ export class HttpServiceService {
     }));
   }
 
+  unSubscribeOnActivity(activityId: number, token: String): Observable<string> {
+    const myHeaders = new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    .set("Authorization", "Bearer " + token.toString());
+    const params = new HttpParams().append("activityId", activityId.toString());
+    return this.http.post(this.backUrl + '/activity/unSubscribe',
+        null,
+        {
+          responseType: 'json',
+          headers: myHeaders,
+          params: params
+        }).pipe(map(answer => {
+      const res = answer.valueOf() as Response;
+      const any = this.handleReponse<Object>(res);
+      return "ok";
+    }));
+  }
+
   getsubscribedActivities(token: string): Observable<Iterable<Activity>> {
     const myHeaders = new HttpHeaders()
     .set('Content-Type', 'application/json')
