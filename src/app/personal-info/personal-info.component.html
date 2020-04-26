@@ -21,4 +21,34 @@
         <div class="col-md-10 themed-grid-col">{{personalInfo.login}}</div>
       </div>
     </div>
+
+    <div class="col-md-12 pt-3 pb-3">
+      <div *ngFor="let activity of subsctibedActivity">
+        <div class="card">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card-body">
+                <h5 class="card-title">{{activity.category}}</h5>
+                <h6 class="card-title">{{activity.subCategory}}</h6>
+  
+                <p class="card-text">
+                  Описание: {{activity.description}}
+                  <br>
+                  Количество мест: {{activity.countPerson}}
+                  <br>
+                  Статус: {{activity.status}}
+                  <br>
+                  Дата: {{activity.date.toISOString().substring(0, 16)}}
+                </p>
+              </div>
+              <div class="p-3">
+                <button  
+                type="button" 
+                (click)="fullInfo(activity)" 
+                class="btn btn-lg btn-block btn-outline-primary btn-sm">Подробнее</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
   </div>

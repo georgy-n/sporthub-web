@@ -35,4 +35,10 @@ export class ActivityService {
   activityInfo(activityId: string): Observable<ActivityInfo> {
     return this.http.getActivityInfo(activityId);
   }
+
+  getSubscibedActivity(token: string): Observable<Array<Activity>> {
+    return this.http.getSubscribedActivity(token);
+  
+  }
+
 }

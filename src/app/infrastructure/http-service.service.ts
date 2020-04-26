@@ -42,6 +42,24 @@ export class HttpServiceService {
     }));
   }
   
+  getSubscribedActivity(token: string): Observable<Array<Activity>> {
+    return this.http.get(this.backUrl + "/activity/subscribed",
+    { headers: { "Authorization": "Bearer " + token.toString() }}
+    ).pipe(
+      map(answer => {
+        const res = answer.valueOf() as Response;
+        const activitiesR = this.handleReponse<Array<ActivityRaw>>(res);
+        let activities = Array<Activity>();
+        activitiesR.map((act, b, c) => {
+          let d = new Date(0);
+          d.setUTCSeconds(act.date.seconds);  
+          activities.push(new Activity(act.id, act.description, act.category, act.subCategory, act.owner, act.countPerson, act.status, d));
+        });
+        return activities;
+      })
+    );
+  }
+
   getAllActivity(): Observable<Iterable<Activity>> {
     return this.http.get(this.backUrl + "/activity/getAll").pipe(
       map(answer => {
