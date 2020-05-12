@@ -1,3 +1,5 @@
+import { DateRaw } from './DateRaw';
+
 export class ActivityRaw {
     id: number;
     description: string;
@@ -7,10 +9,6 @@ export class ActivityRaw {
     countPerson: string;
     status: string;
     date: DateRaw;
-}
-
-export class DateRaw {
-    seconds: number;
 }
 
 export class Activity {

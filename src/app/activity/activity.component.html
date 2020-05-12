@@ -6,8 +6,6 @@
 
   <div class="row">
     <div *ngIf="!loaded" class="container pt-5 col-md-6">
-      
-      
       <div class="font-weight-bold pt-3">
         Категория: {{activityInfo.category}}
       </div>
@@ -39,6 +37,23 @@
       <button *ngIf="logged && !isSubsribed" type="button" (click)="subscribe()" class="btn btn-lg btn-block btn-outline-primary">Забронировать</button>
       <button *ngIf="isSubsribed" type="button" (click)="unSubscribe()" class="btn btn-lg btn-block btn-outline-primary">Отменить бронирование</button>
     
+      <div class='mt-5 p-3 border' *ngFor="let comment of comments">
+        <div class='h6'>{{findOwner(comment.commentOwner)?.firstName}} {{findOwner(comment.commentOwner)?.secondName}}</div>
+        <div>{{comment.message}} </div>
+        <div class='small'>{{comment.date.toISOString().substring(0, 16)}}</div>
+        
+      </div>
+    
+      <div *ngIf="logged && isSubsribed" class='mt-5 pb-3' [formGroup]="commentForm" (ngSubmit)="addComment()">
+        <textarea type="text" 
+               formControlName="message" 
+               class="form-control" 
+               id="message" 
+               placeholder="Спросите, что Вас интересует"></textarea>
+      </div>
+
+      <button *ngIf="logged && isSubsribed" type="button" (click)="addComment()" class="btn btn-lg btn-block btn-outline-primary">Оставить комметарий</button>
+
     </div>
 
     
@@ -49,5 +64,6 @@
         {{part.firstName}} {{part.secondName}}
       </div>
     </div>
+
   </div>
 </div>

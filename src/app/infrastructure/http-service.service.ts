@@ -9,9 +9,11 @@ import { PersonalInfo, ShortPersonalInfo } from './classes/PersonalInfo';
 import { RegistrationRequest } from './classes/RegistrationRequest';
 import { LoginResponse } from './classes/LoginResponse';
 import { ErrorResponse } from './classes/ErrorRepsonse';
-import { ComponentSource } from 'ag-grid-community/dist/lib/components/framework/userComponentFactory';
 import { Category } from './classes/Category';
 import { OfferActivityRequest } from './classes/OfferActivityRequest';
+import { CommentRaw, Comment } from './classes/Comment';
+import { CommentRequest } from './classes/CommentRequest';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -227,6 +229,46 @@ export class HttpServiceService {
           )
   }
 
+  
+  getComments(activityId: number): Observable<Array<Comment>> {
+    return this.http.get(
+      this.backUrl + "/activity/comments?activityId="+activityId.toString())
+      .pipe(
+        map(answer => {
+          const res = answer.valueOf() as Response;
+          const response = this.handleReponse<Array<CommentRaw>>(res);
+          let comments = Array<Comment>();
+
+          response.map((comment, b, c) => {
+          let d = new Date(0);
+          d.setUTCSeconds(comment.date.seconds);  
+          comments.push(new Comment(comment.activityId, comment.message, d, comment.id, comment.commentOwner));
+          });
+          
+          return comments;
+        })
+    )
+  }
+
+  addComment(req: CommentRequest, token: String) {
+    const myHeaders = new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    .set("Authorization", "Bearer " + token.toString());
+    let body = JSON.stringify(req);
+    return this.http.post(this.backUrl + '/activity/comment',
+        body,
+        {
+          responseType: 'json',
+          headers: myHeaders
+        }).pipe(map(answer => {
+      const res = answer.valueOf() as Response;
+      const comment = this.handleReponse<CommentRaw>(res);
+      let d = new Date(0);
+      d.setUTCSeconds(comment.date.seconds);  
+      return new Comment(comment.activityId, comment.message, d, comment.id, comment.commentOwner);
+    }));
+  }
+  
   private handleReponse<T>(response: Response) {
     if (response && response.status === 'Ok') {
       const payload = response.payload.valueOf() as T;

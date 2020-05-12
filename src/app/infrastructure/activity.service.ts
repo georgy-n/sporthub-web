@@ -6,6 +6,8 @@ import { flatMap } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { OfferActivityRequest } from './classes/OfferActivityRequest';
 import { Activity, ActivityInfo } from './classes/ActivityRaw';
+import { CommentRaw, Comment } from './classes/Comment';
+import { CommentRequest } from './classes/CommentRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -41,4 +43,12 @@ export class ActivityService {
   
   }
 
+  getComments(activityId: number): Observable<Array<Comment>> {
+    return this.http.getComments(activityId);
+
+  }
+
+  addComment(req: CommentRequest, token: string): Observable<Comment> {
+    return this.http.addComment(req, token);
+  }
 }
