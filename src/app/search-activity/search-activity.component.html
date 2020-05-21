@@ -1,7 +1,7 @@
 <div class="jumbotron bg-white">
   <div class='container pt-5'>
     <div class="search-hero">
-      <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Start searching for a hero by id or name or country">
+      <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442; Введите любую информацию о активности, чтобы найти ее">
     </div>
 
     <div *ngFor="let activity of activities | filter:searchText">
