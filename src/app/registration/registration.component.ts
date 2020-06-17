@@ -36,7 +36,7 @@ export class RegistrationComponent implements OnInit {
       let controls = this.rForm.controls
       let regRequest = new RegistrationRequest(
         controls.firstName.value,
-        controls.firstName.value,
+        controls.lastName.value,
         controls.login.value,
         controls.password.value)
       this.authService.registration(regRequest).subscribe(
@@ -50,7 +50,7 @@ export class RegistrationComponent implements OnInit {
       )
     }
   }
-
+  
   private markFormGroupTouched(form: FormGroup) {
     Object.values(form.controls).forEach(control => {
       control.markAsTouched();
