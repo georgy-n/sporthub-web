@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { catchError, first, map, timeout } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -18,7 +18,10 @@ export class LoginComponent implements OnInit {
   loading = false;
   error: string;
 
+  returnUrl: string;
+
   constructor(
+    private route: ActivatedRoute,
     private authService: UserService,
     private router: Router,
     private formBuilder: FormBuilder) {}
@@ -30,6 +33,8 @@ export class LoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
+    this.returnUrl = this.route.snapshot.queryParams['return'] || '/'
+    console.log( this.route.snapshot.queryParams['return'])
   }
 
   onSubmit() {
@@ -44,7 +49,7 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.authService.login(this.f.username.value, this.f.password.value )
       .subscribe( token => {
-          this.router.navigate(['/']);
+          this.router.navigateByUrl(this.returnUrl);
         },
         err => {
           this.error = err.message;

@@ -15,7 +15,12 @@ export class PersonalInfoGuard implements CanActivate {
     if (this.authService.isUserLoggedIn.value) {
       return true;
     } else {
-      this.router.navigate(['login']);
+      console.log(state.url)
+      this.router.navigate(['login'], { 
+        queryParams: { 
+          return: state.url 
+        }
+      });
     }
   }
 }

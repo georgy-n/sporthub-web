@@ -8,6 +8,8 @@ import { OfferActivityRequest } from './classes/OfferActivityRequest';
 import { Activity, ActivityInfo } from './classes/ActivityRaw';
 import { CommentRaw, Comment } from './classes/Comment';
 import { CommentRequest } from './classes/CommentRequest';
+import { EditActivityRequest } from './classes/EditActivityRequest';
+import { DeleteActivityRequest } from './classes/DeleteActivityRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -50,5 +52,13 @@ export class ActivityService {
 
   addComment(req: CommentRequest, token: string): Observable<Comment> {
     return this.http.addComment(req, token);
+  }
+
+  editActivity(req: EditActivityRequest,  token: string): Observable<string> {
+    return this.http.editActivity(req, token)
+  }
+
+  deleteActivity(req: DeleteActivityRequest, token: string): Observable<string> {
+    return this.http.deleteActivity(req, token)
   }
 }

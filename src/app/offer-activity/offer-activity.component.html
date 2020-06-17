@@ -10,7 +10,7 @@
               <label for="category">Категория</label>
               <select formControlName="category" 
                       id="category" class="form-control"
-                      (change)="changeCity($event)">
+                      (change)="changeCategory($event)">
                   <option value="" disabled selected>Выберите категорию</option>
                   <option *ngFor="let cat of categories">{{cat.name}}</option> 
               </select>

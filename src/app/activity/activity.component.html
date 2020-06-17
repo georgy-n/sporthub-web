@@ -5,57 +5,9 @@
   </div>
 
   <div class="row">
-    <div *ngIf="!loaded" class="container pt-5 col-md-6">
-      <div class="font-weight-bold pt-3">
-        Категория: {{activityInfo.category}}
-      </div>
-      <div class="font-weight-bold pt-3">
-        Подкатегория: {{activityInfo.subCategory}}
-      </div>
-
-      <div class="font-weight-bold pt-3">
-        Дата проведения: {{activityInfo.date.toISOString().substring(0, 16)}}
-      </div>
-
-      <div class="font-weight-bold pt-3">Описание: </div>
-      <div class="container pt-1">
-        {{activityInfo.description}}
-      </div>
-      
-      <div class="font-weight-bold pt-3">Организатор: </div>
-      <div class="container p-1">
-        <img src="../../assets/stub-user.png" class="rounded-circle" style="width: 10%;" alt="Responsive image">
-        {{owner.firstName}} {{owner.secondName}}
-      </div>
-      
-      <div class="font-weight-bold pt-3">Забронировано мест: </div>
-      <div class="container p-1">
-        {{activityInfo.countPerson - activityInfo.countFreeSpace}} / {{activityInfo.countPerson}}
-      </div>
-            
-      <button *ngIf="!logged" type="button" (click)="login()" class="btn btn-lg btn-block btn-outline-primary">Войдите, чтобы забронировать</button>
-      <button *ngIf="logged && !isSubsribed" type="button" (click)="subscribe()" class="btn btn-lg btn-block btn-outline-primary">Забронировать</button>
-      <button *ngIf="isSubsribed" type="button" (click)="unSubscribe()" class="btn btn-lg btn-block btn-outline-primary">Отменить бронирование</button>
-    
-      <div class='mt-3 p-3 border' *ngFor="let comment of comments">
-        <div class='h6'>{{findOwner(comment.commentOwner)?.firstName}} {{findOwner(comment.commentOwner)?.secondName}}</div>
-        <div>{{comment.message}} </div>
-        <div class='small'>{{comment.date.toISOString().substring(0, 16)}}</div>
-        
-      </div>
-    
-      <div *ngIf="logged && isSubsribed" class='mt-3 pb-3' [formGroup]="commentForm" (ngSubmit)="addComment()">
-        <textarea type="text" 
-               formControlName="message" 
-               class="form-control" 
-               id="message" 
-               placeholder="Спросите, что Вас интересует"></textarea>
-      </div>
-
-      <button *ngIf="logged && isSubsribed" type="button" (click)="addComment()" class="btn btn-lg mb-5 btn-block btn-outline-primary">Оставить комметарий</button>
-
-    </div>
-
+    <ng-template [ngTemplateOutlet]="loadTemplate()" 
+      [ngTemplateOutletContext]="{ $implicit: activityInfo}">
+    </ng-template>
     
     <div *ngIf="!loaded" class="container pt-5 col-md-4 mb-5">
       <div class="text-center font-weight-bold p-3">Участники</div>
@@ -67,3 +19,114 @@
 
   </div>
 </div>
+
+<!--шаблон для чтения-->
+<ng-template #readOnlyTemplate let-activityInfo>
+  <div *ngIf="!loaded" class="container pt-5 col-md-6">
+    <div class="font-weight-bold pt-3">
+      Категория: {{activityInfo.category}}
+    </div>
+    <div class="font-weight-bold pt-3">
+      Подкатегория: {{activityInfo.subCategory}}
+    </div>
+
+    <div class="font-weight-bold pt-3">
+      Дата проведения: {{activityInfo.date.toISOString().substring(0, 16)}}
+    </div>
+
+    <div class="font-weight-bold pt-3">Описание: </div>
+    <div class="container pt-1">
+      {{activityInfo.description}}
+    </div>
+    
+    <div class="font-weight-bold pt-3">Организатор: </div>
+    <div class="container p-1">
+      <img src="../../assets/stub-user.png" class="rounded-circle" style="width: 10%;" alt="Responsive image">
+      {{owner.firstName}} {{owner.secondName}}
+    </div>
+    
+    <div class="font-weight-bold pt-3">Забронировано мест: </div>
+    <div class="container p-1">
+      {{activityInfo.countPerson - activityInfo.countFreeSpace}} / {{activityInfo.countPerson}}
+    </div>
+    <div class="row">
+        <input *ngIf="logged && isOwner" type="button" value="Изменить" class="btn btn-default" (click)="editActivity()" />
+        <input *ngIf="logged && isOwner" type="button" value="Удалить" (click)="delete()" class="btn btn-danger" />
+    </div>
+          
+    <button *ngIf="!logged" type="button" (click)="login()" class="btn btn-lg btn-block btn-outline-primary">Войдите, чтобы забронировать</button>
+    <button *ngIf="logged && !isSubsribed" type="button" (click)="subscribe()" class="btn btn-lg btn-block btn-outline-primary">Забронировать</button>
+    <button *ngIf="isSubsribed" type="button" (click)="unSubscribe()" class="btn btn-lg btn-block btn-outline-primary">Отменить бронирование</button>
+  
+    <div class='mt-3 p-3 border' *ngFor="let comment of comments">
+      <div class='h6'>{{findOwner(comment.commentOwner)?.firstName}} {{findOwner(comment.commentOwner)?.secondName}}</div>
+      <div>{{comment.message}} </div>
+      <div class='small'>{{comment.date.toISOString().substring(0, 16)}}</div>
+      
+    </div>
+  
+    <div *ngIf="logged && (isSubsribed || isOwner)" class='mt-3 pb-3' [formGroup]="commentForm" (ngSubmit)="addComment()">
+      <textarea type="text" 
+             formControlName="message" 
+             class="form-control" 
+             id="message" 
+             placeholder="Спросите, что Вас интересует"></textarea>
+    </div>
+
+    <button *ngIf="logged && (isSubsribed || isOwner)" type="button" (click)="addComment()" class="btn btn-lg mb-5 btn-block btn-outline-primary">Оставить комметарий</button>
+
+  </div>
+</ng-template>
+
+<ng-template #editTemplate>
+  <div class="container pt-5 col-md-6">
+    <div class="row">
+            
+      <div class="col-sm-6 mb-3">
+        <label for="category">Категория</label>
+        <select [(ngModel)]="editedInfo.category"
+                id="category" class="form-control"
+                (change)="changeCategory($event)">
+            <option value="" disabled selected>Выберите категорию</option>
+            <option *ngFor="let cat of categories">{{cat.name}}</option> 
+        </select>
+      </div>
+
+      <div class="col-sm-6 mb-3">
+        <label for="subCategory">Подкатегория</label>
+        <select [(ngModel)]="editedInfo.subCategory" 
+                id="subCategory" 
+                class="form-control">
+          <option value="" disabled selected>Выберите сначала категорию</option>
+          <option *ngFor="let subCat of getSubCategories(selectedCategory)">{{subCat}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="countPerson">Количетсво мест</label>
+      <div class="input-group">
+        <input type="number"  [(ngModel)]="editedInfo.countPerson" class="form-control" id="countPerson">
+        </div>
+      </div>
+    
+
+    <div class="mb-3">
+      <label for="date">Когда и во сколько</label>
+      <input type="datetime-local" [(ngModel)]="editedInfo.date" class="form-control" id="date">
+    </div>
+    
+    <div class="mb-3">
+      <label for="description">Описание</label>
+      <div class="input-group">
+        <textarea type="text"
+               class="form-control" 
+               id="description" 
+               [(ngModel)]="editedInfo.description" class="form-control"></textarea>
+      </div>
+    </div>  
+ 
+    <input type="button" value="Сохранить" (click)="save()" class="btn btn-success" />
+    <input type="button" value="Отмена" (click)="cancel()" class="btn btn-warning" />
+  </div>
+</ng-template>

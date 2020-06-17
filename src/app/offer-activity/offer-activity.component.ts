@@ -6,6 +6,7 @@ import { ActivityService } from '../infrastructure/activity.service';
 import { OfferActivityRequest } from '../infrastructure/classes/OfferActivityRequest';
 import { UserService } from '../infrastructure/user.service';
 import { Activity } from '../infrastructure/classes/ActivityRaw';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-offer-activity',
@@ -21,7 +22,11 @@ export class OfferActivityComponent implements OnInit {
   success: Boolean;
   createdActivity: Activity;
   
-  constructor( private formBuilder: FormBuilder, private activityService: ActivityService, private userService: UserService) {
+  constructor( 
+    private router: Router,
+    private formBuilder: FormBuilder, 
+    private activityService: ActivityService, 
+    private userService: UserService) {
     activityService.getCategories().subscribe(cat => this.categories = cat)
    }
 
@@ -57,6 +62,7 @@ export class OfferActivityComponent implements OnInit {
           this.loading = false;
           this.success = true;
           this.createdActivity = act;
+          this.router.navigate(['/activity-info', {activityId: act.id}]);
         },
         err => {
           this.errors = err.message;
@@ -85,7 +91,7 @@ export class OfferActivityComponent implements OnInit {
     if (value === undefined) return []
     else return value.subCategories;
   }
-  changeCity(e) {
+  changeCategory(e) {
     console.log(e.target.value)
     console.log(this.categories.find(elem => elem.name === e.target.value).subCategories)
     this.selectedCategory = e.target.value;

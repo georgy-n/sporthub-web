@@ -46,7 +46,7 @@ export class ActivityInfoRaw {
     category: string;
     subCategory: string;
     owner: string;
-    countPerson: string;
+    countPerson: number;
     status: string;
     date: DateRaw;
     countFreeSpace: number;
@@ -57,7 +57,7 @@ export class ActivityInfoRaw {
         category: string,
         subCategory: string,
         owner: string,
-        countPerson: string,
+        countPerson: number,
         status: string,
         date: DateRaw,
         countFreeSpace: number,
@@ -81,7 +81,7 @@ export class ActivityInfo {
     category: string;
     subCategory: string;
     owner: string;
-    countPerson: string;
+    countPerson: number;
     status: string;
     date: Date;
     countFreeSpace: number;
@@ -92,7 +92,7 @@ export class ActivityInfo {
         category: string,
         subCategory: string,
         owner: string,
-        countPerson: string,
+        countPerson: number,
         status: string,
         date: Date,
         countFreeSpace: number,

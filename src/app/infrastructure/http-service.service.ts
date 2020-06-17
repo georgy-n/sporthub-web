@@ -13,6 +13,8 @@ import { Category } from './classes/Category';
 import { OfferActivityRequest } from './classes/OfferActivityRequest';
 import { CommentRaw, Comment } from './classes/Comment';
 import { CommentRequest } from './classes/CommentRequest';
+import { EditActivityRequest } from './classes/EditActivityRequest';
+import { DeleteActivityRequest } from './classes/DeleteActivityRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +46,7 @@ export class HttpServiceService {
     }));
   }
   
+
   getSubscribedActivity(token: string): Observable<Array<Activity>> {
     return this.http.get(this.backUrl + "/activity/subscribed",
     { headers: { "Authorization": "Bearer " + token.toString() }}
@@ -269,6 +272,41 @@ export class HttpServiceService {
     }));
   }
   
+  
+  editActivity(req: EditActivityRequest, token: String): Observable<string> {
+    const myHeaders = new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    .set("Authorization", "Bearer " + token.toString());
+    let body = JSON.stringify(req);
+    return this.http.post(this.backUrl + '/activity/edit',
+        body,
+        {
+          responseType: 'json',
+          headers: myHeaders
+        }).pipe(map(answer => {
+      const res = answer.valueOf() as Response;
+      const comment = this.handleReponse<Object>(res);
+      return "ok"
+    }));
+  }
+
+  deleteActivity(req: DeleteActivityRequest, token: String): Observable<string> {
+    const myHeaders = new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    .set("Authorization", "Bearer " + token.toString());
+    let body = JSON.stringify(req);
+    return this.http.post(this.backUrl + '/activity/delete',
+        body,
+        {
+          responseType: 'json',
+          headers: myHeaders
+        }).pipe(map(answer => {
+      const res = answer.valueOf() as Response;
+      const comment = this.handleReponse<Object>(res);
+      return "ok"
+    }));
+  }
+
   private handleReponse<T>(response: Response) {
     if (response && response.status === 'Ok') {
       const payload = response.payload.valueOf() as T;
